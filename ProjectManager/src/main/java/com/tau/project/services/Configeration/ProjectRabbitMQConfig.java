@@ -13,7 +13,7 @@ import org.springframework.amqp.support.converter.MessageConverter;
 import org.springframework.amqp.support.converter.SimpleMessageConverter;
 import org.springframework.context.annotation.Bean;
 
-public class ProjectRabbitMQConfig implements Serializable {
+public class ProjectRabbitMQConfig  {
     public static final String Exchange="project_exchange";
     public static final String Routing_KEYS="project_routing_key";
     public static final String Queue="project_queue";

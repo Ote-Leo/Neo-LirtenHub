@@ -1,5 +1,6 @@
 package com.tau.project.services.commands.project_commands;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 import com.tau.project.models.Project;
@@ -15,7 +16,7 @@ import lombok.AllArgsConstructor;
 
 @Service
 @AllArgsConstructor
-public class AddProjectCommand extends CommandDP{
+public class AddProjectCommand extends CommandDP implements Serializable{
 
     private final Project_Repository project_repository;
     private final User_Repository user_repsitory;

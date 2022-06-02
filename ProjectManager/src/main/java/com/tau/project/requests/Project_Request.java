@@ -1,6 +1,7 @@
 package com.tau.project.requests;
 
 import java.util.Date;
+import java.io.Serializable;
 import java.util.ArrayList;
 
 import lombok.EqualsAndHashCode;
@@ -10,7 +11,7 @@ import lombok.ToString;
 @Getter
 @EqualsAndHashCode
 @ToString
-public class Project_Request {
+public class Project_Request implements Serializable  {
     private final Long project_id, owner_id;
     private final String project_title, project_description, status;
     private final Date start_date, end_date;

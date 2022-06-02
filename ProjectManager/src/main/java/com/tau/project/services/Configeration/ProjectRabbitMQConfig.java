@@ -8,12 +8,18 @@ import org.springframework.amqp.core.Binding;
 import org.springframework.amqp.core.BindingBuilder;
 import org.springframework.amqp.core.Exchange;
 import org.springframework.amqp.core.TopicExchange;
+import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.amqp.support.converter.Jackson2XmlMessageConverter;
 import org.springframework.amqp.support.converter.MessageConverter;
 import org.springframework.amqp.support.converter.SimpleMessageConverter;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 
-public class ProjectRabbitMQConfig  {
+import lombok.AllArgsConstructor;
+
+
+@RabbitListener
+public class ProjectRabbitMQConfig   {
     public static final String Exchange="project_exchange";
     public static final String Routing_KEYS="project_routing_key";
     public static final String Queue="project_queue";

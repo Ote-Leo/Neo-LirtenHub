@@ -1,5 +1,6 @@
 package com.tau.project.models;
 import java.util.Date;
+import java.io.Serializable;
 import java.util.ArrayList;
 
 import org.springframework.data.annotation.Id;
@@ -13,7 +14,7 @@ import lombok.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @Document("Project")
-public class Project {
+public class Project implements Serializable{
     @Id
     private Long project_id;
     private Long owner_id;

@@ -47,4 +47,4 @@ The Firebase Admin Java SDK enables access to Firebase services from privileged 
 
 ## API Document File
 
-[API_DOC](/API_DOC.md)
+[API_DOC](ChatApp/../API_DOC.md)

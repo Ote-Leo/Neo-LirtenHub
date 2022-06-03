@@ -26,9 +26,7 @@
 Create a `GET /getMessages/{usersID}` request
 
 ```json
-body {
-
-}
+{}
 ```
 
 #### Get Messages: Success
@@ -59,10 +57,10 @@ body {
 Create a `POST /sendMessage/{usersID}` request
 
 ```json
-body {
-    "messageID": 1,
-    "messageText": "first message",
-    "messageUser": "User1_Name"
+{
+  "messageID": 1,
+  "messageText": "first message",
+  "messageUser": "User1_Name"
 }
 ```
 
@@ -85,16 +83,14 @@ body {
 Create a `GET /getMessages/close/{usersID}` request
 
 ```json
-body {
-
-}
+{}
 ```
 
 #### Close Listener: Success
 
 ```json
 {
-     1-2 listener closed
+  // 1-2 listener closed
 }
 ```
 

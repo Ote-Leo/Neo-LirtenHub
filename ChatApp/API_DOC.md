@@ -1,15 +1,21 @@
-# **_LirtenHub Chat API Document File_**
+# **_Neo-LirtenHub Chat API Document File_**
 
 </hr>
 
 ## Table of Contents
 
-- [**_LirtenHub Chat API Document File_**](#lirtenhub-chat-api-document-file)
+- [**_Neo-LirtenHub Chat API Document File_**](#neo-lirtenhub-chat-api-document-file)
   - [Table of Contents](#table-of-contents)
   - [Chat App Routes](#chat-app-routes)
-    - [1. Get Messages](#get-messages)
-    - [2. Send Message](#send-message)
-    - [3. Close Listener](#close-listener)
+    - [1. Get Messages](#1-get-messages)
+      - [Get Messages: Success](#get-messages-success)
+      - [Get Messages: Failure](#get-messages-failure)
+    - [2. Send Message](#2-send-message)
+      - [Send Message: Success](#send-message-success)
+      - [Send Messages: Failure](#send-messages-failure)
+    - [3. Close Listener](#3-close-listener)
+      - [Close Listener: Success](#close-listener-success)
+      - [Close Listener: Failure](#close-listener-failure)
 
 </hr>
 
@@ -17,15 +23,18 @@
 
 ### 1. Get Messages
 
-```json
-    Create a `GET /getMessages/{usersID}` request
+Create a `GET /getMessages/{usersID}` request
 
+```json
 body {
 
 }
+```
 
-    Success
-{ 
+#### Get Messages: Success
+
+```json
+{
     [
         {
             "messageID": 1,
@@ -35,51 +44,62 @@ body {
         }
     ]
 }
+```
 
-    Failure
-{ 
+#### Get Messages: Failure
+
+```json
+{
     []
 }
 ```
 
 ### 2. Send Message
 
-```json
-    Create a `POST /sendMessage/{usersID}` request
+Create a `POST /sendMessage/{usersID}` request
 
+```json
 body {
     "messageID": 1,
     "messageText": "first message",
-    "messageUser": "User1_Name"  
-}
-
-    Success
-{ 
-    messageID
-}
-
-    Failure
-{ 
-   
+    "messageUser": "User1_Name"
 }
 ```
 
-### 3.  Close Listener
+#### Send Message: Success
 
 ```json
-    Create a `GET /getMessages/close/{usersID}` request
+{
+    messageID
+}
+```
 
+#### Send Messages: Failure
+
+```json
+{}
+```
+
+### 3. Close Listener
+
+Create a `GET /getMessages/close/{usersID}` request
+
+```json
 body {
 
 }
+```
 
-    Success
-{ 
+#### Close Listener: Success
+
+```json
+{
      1-2 listener closed
 }
+```
 
-    Failure
-{ 
+#### Close Listener: Failure
 
-}
+```json
+{}
 ```

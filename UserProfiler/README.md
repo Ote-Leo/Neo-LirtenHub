@@ -14,7 +14,7 @@
     - [2. Spring Web](#2-spring-web)
     - [3. MongoDB Driver](#3-mongodb-driver)
   - [Usage Instructions](#usage-instructions)
-  - [CURL](#curl)
+  - [API Document File](#api-document-file)
 
 </hr>
 
@@ -22,14 +22,14 @@
 
 ## TODO
 
-
-- [x] project_preference
-- [x] add_interests
-- [x] github_link
-- [x] add bio
-- [x] block user
-- [ ] edit profile
-- [ ] set location 
+- [x] Edit Profile
+- [x] Add bio
+- [x] Add multiple favorite Coding languages
+- [x] Block users
+- [x] Report users
+- [x] Attach link to GitHub account
+- [x] Choose set of interests
+- [x] Choose preferences for Projects
 
 ## Dependencies
 
@@ -61,15 +61,6 @@ MongoDB is a document database with the scalability and flexibility that you wan
 
 1. Update the `application.properties` with your mongodb `username` and `password`, at port 8080
 
-## CURL
+## API Document File
 
-```curl
-curl --location --request POST 'localhost:8080/api/v1/registration' \
---header 'Content-Type: application/json' \
---data-raw '{
-    "firstName": "Ote",
-    "lastName":  "Leo",
-    "email":     "ote@leo.com",
-    "password":  "password"
-}'
-- ```
+[API_doc](user/../API_doc.md)

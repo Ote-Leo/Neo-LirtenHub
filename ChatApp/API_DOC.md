@@ -1,21 +1,17 @@
-# **_Neo-LirtenHub Chat API Document File_**
+# **_LirtenHub Chat API Document File_**
 
 </hr>
 
 ## Table of Contents
 
-- [**_Neo-LirtenHub Chat API Document File_**](#neo-lirtenhub-chat-api-document-file)
+- [**_LirtenHub Chat API Document File_**](#lirtenhub-chat-api-document-file)
   - [Table of Contents](#table-of-contents)
   - [Chat App Routes](#chat-app-routes)
-    - [1. Get Messages](#1-get-messages)
-      - [Get Messages: Success](#get-messages-success)
-      - [Get Messages: Failure](#get-messages-failure)
-    - [2. Send Message](#2-send-message)
-      - [Send Message: Success](#send-message-success)
-      - [Send Messages: Failure](#send-messages-failure)
-    - [3. Close Listener](#3-close-listener)
-      - [Close Listener: Success](#close-listener-success)
-      - [Close Listener: Failure](#close-listener-failure)
+    - [1. Get Messages](#get-messages)
+    - [2. Send Message](#send-message)
+    - [3. Close Listener](#close-listener)
+    - [4. Send Image](#send-image)
+    - [5. Get Image](#get-image)
 
 </hr>
 
@@ -23,16 +19,15 @@
 
 ### 1. Get Messages
 
-Create a `GET /getMessages/{usersID}` request
-
 ```json
-{}
-```
+    Create a `GET /getMessages/{usersID}` request
 
-#### Get Messages: Success
+body {
 
-```json
-{
+}
+
+    Success
+{ 
     [
         {
             "messageID": 1,
@@ -42,60 +37,95 @@ Create a `GET /getMessages/{usersID}` request
         }
     ]
 }
-```
 
-#### Get Messages: Failure
-
-```json
-{
+    Failure
+{ 
     []
 }
 ```
 
 ### 2. Send Message
 
-Create a `POST /sendMessage/{usersID}` request
-
 ```json
-{
-  "messageID": 1,
-  "messageText": "first message",
-  "messageUser": "User1_Name"
+    Create a `POST /sendMessage/{usersID}` request
+
+body {
+    "messageID": 1,
+    "messageText": "first message",
+    "messageUser": "User1_Name"  
 }
-```
 
-#### Send Message: Success
-
-```json
-{
+    Success
+{ 
     messageID
 }
-```
 
-#### Send Messages: Failure
-
-```json
-{}
-```
-
-### 3. Close Listener
-
-Create a `GET /getMessages/close/{usersID}` request
-
-```json
-{}
-```
-
-#### Close Listener: Success
-
-```json
-{
-  // 1-2 listener closed
+    Failure
+{ 
+   
 }
 ```
 
-#### Close Listener: Failure
+### 3.  Close Listener
 
 ```json
-{}
+    Create a `GET /getMessages/close/{usersID}` request
+
+body {
+
+}
+
+    Success
+{ 
+     1-2 listener closed
+}
+
+    Failure
+{ 
+
+}
+```
+
+### 4.  Send Image
+
+```json
+    Create a `POST /sendImage/{usersID}` request
+
+body {
+     {
+        "messageID": 2,
+        "messageText": "C:\\Users\\Documents\\Demo.png",
+        "messageUser": "User1_Name"
+    }
+}
+
+    Success
+{ 
+
+}
+
+    Failure
+{ 
+
+}
+```
+
+### 5.  Get Image
+
+```json
+    Create a `GET /getImage/{ID}` request
+
+body {
+
+}
+
+    Success
+{ 
+     
+}
+
+    Failure
+{ 
+
+}
 ```

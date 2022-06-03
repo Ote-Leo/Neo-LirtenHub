@@ -1,0 +1,26 @@
+---
+server:
+  error:
+    include-message: always
+    include-binding-errors: always
+
+spring:
+  datasource:
+    password: 6f717b4480a046909fc24e06f5589aa3
+    url: jdbc:postgresql://localhost:5432/projecthandler
+    username: postgres
+  jpa:
+    hibernate:
+      ddl-auto: create-drop # TESTING PHASE `DROPPING EVERYTHING IN THE DATA BASE`, NOT FOR PRODUCTION
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        format_sql: true
+    show-sql: true
+rabbitmq:
+    exchangs:
+      internal: internal.exchange
+    queues:
+      notification: notification.queue
+    routing-keys:
+      internal-notification: internal.notification.routing-key        

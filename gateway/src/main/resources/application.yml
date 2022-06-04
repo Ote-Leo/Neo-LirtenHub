@@ -7,11 +7,27 @@ spring:
       - id: authenticatorModule
         uri: http://localhost:8080/
         predicates:
-          - Path=/api/**,/attempts,/attempts/**,/users/**, /login/**
-      - id: consumerModule
-        uri: http://localhost:8082/
+          - Path=/api/registration/**, /login/**
+      - id: geoLocatorModule
+        uri: http://localhost:808/
         predicates:
-          - Path=/consumer/**
+          - Path=//**
+      - id: userAppModule
+        uri: http://localhost:808/
+        predicates:
+          - Path=/api/session/usr/project_selection/**, /api/session/**, /api/session/usr/**, api/user/bio/**,/api/session/usr/profile/**
+      - id: projectMangerModule
+        uri: http://localhost:808/
+        predicates:
+          - Path=/api/user/project_handler/**
+      - id: chatAppModule
+        uri: http://localhost:808/
+        predicates:
+          - Path=/getMessages/**, /sendMessage/**, /sendImage/**, /getImage/**
+      - id: notificationAppModule
+        uri: http://localhost:808/
+        predicates:
+          - Path=/notification/**   
       globalcors:
         cors-configurations:
           '[/**]':

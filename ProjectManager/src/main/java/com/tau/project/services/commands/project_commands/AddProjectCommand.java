@@ -25,7 +25,6 @@ public class AddProjectCommand extends CommandDP{
 
     @Override
     public String execute(){
-        System.out.println(data.getClass());
         
         if(user_repsitory.findById(((Project_Request) data).getOwner_id()).isEmpty())
             return ERROR + " OWNER does not exist.";

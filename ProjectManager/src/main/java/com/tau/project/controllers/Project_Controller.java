@@ -3,7 +3,6 @@ package com.tau.project.controllers;
 import com.tau.project.configuration.Message;
 import com.tau.project.configuration.RabbitMQConfiguration;
 import com.tau.project.requests.Project_Request;
-// import com.tau.project.services.commands.project_commands.AddProjectCommand;
 import com.tau.project.services.commands.project_commands.DeleteProjectCommand;
 import com.tau.project.services.commands.project_commands.UpdateProjectCommand;
 
@@ -22,37 +21,22 @@ import lombok.AllArgsConstructor;
 @RequestMapping(path = "api/user/project_handler")
 @AllArgsConstructor
 public class Project_Controller {
-    // private final AddProjectCommand add_project_command;
     private final DeleteProjectCommand delete_project_command;
     private final UpdateProjectCommand update_project_command;
 
     @Autowired
     RabbitTemplate template;
 
-
-    // @PostMapping(path = "create_project")
-    // public String add_project(@RequestBody Project_Request project) {
-    //     add_project_command.setData(project);
-    //     template.convertAndSend(RabbitMQConfiguration.USER_EXCHANGE, RabbitMQConfiguration.USER_ROUTING_KEY, project);      
-    //     return add_project_command.execute();   
-
-    // }
-
     @PostMapping(path = "create_project")
     public void add_project(@RequestBody Project_Request project) {
-        //add_project_command.setData(project);
 
         Message message = new Message();
         message.setMethod("create_project");
         message.setOwner_id(project.getOwner_id());
-        message.setData(project);
+        message.setProject_request(project);
 
         template.convertAndSend(RabbitMQConfiguration.USER_EXCHANGE, RabbitMQConfiguration.USER_ROUTING_KEY, message);      
-        
-        // if(create_project)
-        //     return add_project_command.execute();   
-        // else
-        //     return ERROR + " OWNER does not exist.";
+  
 
     }
 

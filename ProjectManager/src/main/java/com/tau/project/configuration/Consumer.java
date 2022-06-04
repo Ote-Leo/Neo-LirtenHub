@@ -15,19 +15,14 @@ public class Consumer {
     
     @RabbitListener(queues = "project_queue") 
     public void projectConsumer(Message message){
+
         if(message.getMessage().equals("create_project_success")){
-            add_project_command.setData(message.getData());
-            System.out.println("Oteeeee" + message.getData().getClass());
+            add_project_command.setData(message.getProject_request());
             add_project_command.execute();
             System.out.println("Project added successfully!");;
         }
         else if(message.getMessage().equals("create_project_fail")){
             System.out.println("Opss! Transaction failed. OWNER does not exist.");;
         }
-
-        
     }
-
-
-
 }

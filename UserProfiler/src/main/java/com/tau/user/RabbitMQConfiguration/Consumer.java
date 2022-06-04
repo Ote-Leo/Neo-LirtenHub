@@ -32,10 +32,11 @@ public class Consumer {
                 response.setMessage("create_project_success");
             }
 
-            response.setData((Project_Request) message.getData());
+            Project_Request project_Request = (Project_Request) message.getProject_request();
+
+            response.setProject_request(project_Request);
 
             template.convertAndSend(RabbitMQConfiguration.PROJECT_EXCHANGE, RabbitMQConfiguration.PROJECT_ROUTING_KEY, response);      
-
 
         }
 

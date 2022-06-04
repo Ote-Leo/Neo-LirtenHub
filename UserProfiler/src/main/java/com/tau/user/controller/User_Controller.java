@@ -29,6 +29,7 @@ import com.tau.user.services.commands.interests.GetInterestCommand;
 import com.tau.user.services.commands.preferences.AddPreferenceCommand;
 import com.tau.user.services.commands.preferences.DeletePreferenceCommand;
 import com.tau.user.services.commands.preferences.GetPreferenceCommand;
+import com.tau.user.services.commands.reporting.GetReportsCommand;
 import com.tau.user.services.commands.reporting.ReportCommand;
 
 import org.springframework.web.bind.annotation.RequestBody;
@@ -60,7 +61,7 @@ public class User_Controller {
     private final EditPasswordCommand editPasswordCommand;
 
     private final AddCodingLanguagesCommand addCodingLanguagesCommand; 
-
+    private final GetReportsCommand getReport_command;
 
     private final User_Service user_service;
 
@@ -191,6 +192,11 @@ public class User_Controller {
         user.setUser_id(user_id);
         addCodingLanguagesCommand.setData(user);
         return addCodingLanguagesCommand.execute();
+    }
+
+    @GetMapping(value = "/api/session/usr/project_selection/get_report")
+    public Object getReport() {
+        return getReport_command.execute();
     }
 }
 

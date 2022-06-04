@@ -24,6 +24,7 @@
     - [8.  Choose preferences for projects](#8--choose-preferences-for-projects)
       - [----- Add project preference](#------add-project-preference)
       - [----- Remove project preference](#------remove-project-preference)
+    - [9.  Moderators see reported users](#9--moderators-see-reported-users)
 
 </hr>
 
@@ -307,5 +308,28 @@ body {
     Failure
 { 
     "message": "Opss! Transaction failed. USER does not exist."
+}
+```
+
+### 9.  Moderators see reported users
+
+```json
+    Create a `GET /api/session/usr/project_selection/get_report` request
+
+body {
+    
+}
+
+    Success
+{ 
+    [
+        "User Abozied Ghonim reported Mohamed Ehab for Violence",
+        "User Ashraf Askora reported Ali Halim for False Information"
+    ]
+}
+
+    Failure
+{ 
+    
 }
 ```

@@ -30,6 +30,7 @@
 - [x] Attach link to GitHub account
 - [x] Choose set of interests
 - [x] Choose preferences for Projects
+- [x] Moderators see reported users
 
 ## Dependencies
 

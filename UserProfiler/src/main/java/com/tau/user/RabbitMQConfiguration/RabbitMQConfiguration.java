@@ -14,10 +14,16 @@ public class RabbitMQConfiguration {
     public static final String PROJECT_EXCHANGE = "project_exchange";
     public static final String PROJECT_ROUTING_KEY = "project_routing_key";
     public static final String PROJECT_QUEUE = "project_queue";
+    public static final String USER_QUEUE = "user_queue";
 
     @Bean
     public Queue userProjectQueue(){
         return new Queue(PROJECT_QUEUE);
+    }
+
+    @Bean
+    public Queue projectUserQueue(){
+        return new Queue(USER_QUEUE);
     }
 
     @Bean

@@ -15,8 +15,15 @@ public class RabbitMQConfiguration {
     public static final String USER_EXCHANGE = "user_exchange";
     public static final String USER_QUEUE = "user_queue";
 
+    public static final String PROJECT_QUEUE = "project_queue";
+
     @Bean
-    public Queue customerOrderQueue(){
+    public Queue userProjectQueue(){
+        return new Queue(PROJECT_QUEUE);
+    }
+
+    @Bean
+    public Queue projectUserQueue(){
         return new Queue(USER_QUEUE);
     }
 
@@ -32,7 +39,7 @@ public class RabbitMQConfiguration {
 
     @Bean
     public Binding bindingCustomerOrderQueue(TopicExchange exchange){
-        return BindingBuilder.bind(customerOrderQueue()).to(exchange).with(USER_ROUTING_KEY);
+        return BindingBuilder.bind(projectUserQueue()).to(exchange).with(USER_ROUTING_KEY);
     }
 
 }

@@ -32,8 +32,7 @@ public class Project_Controller {
 
         Message message = new Message();
         message.setMethod("create_project");
-        message.setOwner_id(project.getOwner_id());
-        message.setProject_request(project);
+        message.setData(project);
 
         template.convertAndSend(RabbitMQConfiguration.USER_EXCHANGE, RabbitMQConfiguration.USER_ROUTING_KEY, message);      
   

@@ -1,13 +1,14 @@
 package com.tau.user.RabbitMQConfiguration;
 
 
+import java.util.LinkedHashMap;
+
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.tau.user.repositories.User_Repository;
-import com.tau.user.requests.Project_Request;
 
 @Component
 public class Consumer {
@@ -25,16 +26,20 @@ public class Consumer {
             
             Message response = new Message();
 
-            if(user_repository.findById(message.getOwner_id()).isEmpty()){
+            Long owner_id = null;
+            Integer owner_Integer = (Integer) ((LinkedHashMap) message.getData()).get("owner_id");
+
+            if(owner_Integer != null)
+                owner_id = new Long(owner_Integer);
+
+            if(user_repository.findById(owner_id).isEmpty()){
                 response.setMessage("create_project_fail");
             }
             else{
                 response.setMessage("create_project_success");
             }
 
-            Project_Request project_Request = (Project_Request) message.getProject_request();
-
-            response.setProject_request(project_Request);
+            response.setData(message.getData());
 
             template.convertAndSend(RabbitMQConfiguration.PROJECT_EXCHANGE, RabbitMQConfiguration.PROJECT_ROUTING_KEY, response);      
 

@@ -22,7 +22,6 @@ public class ChatMessage {
         messageTime = ISO_8601_FORMAT.format(new Date());
     }
     
-    @Async("asyncExecutor")
 
     public ChatMessage() {
  

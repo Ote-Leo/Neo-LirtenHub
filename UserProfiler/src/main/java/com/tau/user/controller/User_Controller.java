@@ -117,7 +117,6 @@ public class User_Controller {
     }
 
     @PostMapping("/api/session/usr/project_selection/add_preference/{user_id}")
-    @Cacheable(value = "preference", key = "#user_id")
     public String choosePrefrence(@PathVariable long user_id, @RequestBody  User_Request user) {
         user.setUser_id(user_id);
         add_preference_command.setData(user);
@@ -143,7 +142,6 @@ public class User_Controller {
     }
 
     @PostMapping("/api/session/attach_github_link/{user_id}")
-    @Cacheable(value = "github_link", key = "#user_id")
     public String addGitHubLink(@PathVariable long user_id, @RequestBody User_Request user) {
         user.setUser_id(user_id);
         add_github_command.setData(user);
@@ -171,7 +169,6 @@ public class User_Controller {
     }
 
     @PostMapping("/api/session/usr/add_interest/{user_id}")
-    @Cacheable(value = "interests", key = "#user_id")
     public String addInterest(@PathVariable long user_id, @RequestBody User_Request user) {
         user.setUser_id(user_id);
         add_interest_command.setData(user);
@@ -189,14 +186,12 @@ public class User_Controller {
 
     // Why us t called add_project ? Ashraf ?
     @PostMapping(path = "api/user/bio/add_bio")
-    @Cacheable(value = "biography", key = "#bio_request.user_id")
     public String add_project(@RequestBody Bio_Request bio_request) {
         add_bio_command.setData(bio_request);
         return add_bio_command.execute();   
     }
     // ==================BLOCK==================================
     @PostMapping(path = "api/user/block_user")
-    @Cacheable(value = "block", key = "#block_request.user_id")
     public String postResult(@RequestBody Block_Request block_request) {
         block_command.setData(block_request);
         return block_command.execute();
@@ -227,14 +222,12 @@ public class User_Controller {
     }
 
     @PostMapping(path = "/api/session/usr/report")
-    @Cacheable(value = "reporting", key = "#report_request.user_id")
     public String add_report(@RequestBody Report_Request report_request) {
         report_command.setData(report_request);
         return report_command.execute();       
  }
 
  @PostMapping("/api/session/usr/codingLanguages/{user_id}")
- @Cacheable(value = "coding_languages", key = "#user_id")
     public String addLanguage(@PathVariable long user_id, @RequestBody User_Request user) {
         user.setUser_id(user_id);
         addCodingLanguagesCommand.setData(user);
@@ -249,7 +242,6 @@ public class User_Controller {
 
 
     @PostMapping("/api/session/usr/add_location/manual/{user_id}")
-    @Cacheable(value = "location", key = "#user_id")
     public String add_location_manually(@PathVariable long user_id, @RequestBody User_Request user) {
         user.setUser_id(user_id);
         add_location_manual.setData(user);
@@ -257,7 +249,6 @@ public class User_Controller {
     }
 
     @PostMapping("/api/session/usr/add_location/automatic/{user_id}")
-    @Cacheable(value = "location", key = "#user_id")
     public void add_location_automatically(@PathVariable long user_id) {
         User_Request user_request = new User_Request();
         user_request.setUser_id(user_id);

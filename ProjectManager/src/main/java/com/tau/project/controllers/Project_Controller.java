@@ -29,7 +29,6 @@ public class Project_Controller {
     RabbitTemplate template;
 
     @PostMapping(path = "create_project")
-    @Cacheable(value = "created_projects",key = "#project.getId()")
     public void add_project(@RequestBody Project_Request project) {
 
         Message message = new Message();
@@ -48,7 +47,6 @@ public class Project_Controller {
     }
 
     @PutMapping(path = "update_project")
-    @Cacheable(value = "updated_projects",key = "#project.getId()")
     public String update_project(@RequestBody Project_Request project) {
         update_project_command.setData(project);      
         return update_project_command.execute();

@@ -28,8 +28,7 @@ public class Consumer {
             String project_title = (String) data.get("project_title"), 
             project_description = (String) data.get("project_description"), 
             status = (String) data.get("status");
-            Date start_date = new Date((Long) data.get("start_date")), 
-            end_date = new Date((Long) data.get("end_date"));
+            Date start_date = null, end_date = null;
             ArrayList<String> tasks = (ArrayList<String>) data.get("tasks"), 
             project_programming_languages = (ArrayList<String>) data.get("project_programming_languages"), 
             project_preference_tags = (ArrayList<String>) data.get("project_preference_tags");
@@ -43,6 +42,12 @@ public class Consumer {
             
             if(owner_Integer != null)
                 owner_id = new Long(owner_Integer);
+
+            if(start_date != null)
+                start_date = new Date((Long) data.get("start_date"));
+
+            if(end_date != null)
+                end_date = new Date((Long) data.get("end_date"));
             
             Project_Request project_request = new Project_Request(project_id, owner_id, project_title, 
             project_description, status, start_date, end_date, tasks, project_programming_languages, 
@@ -50,7 +55,7 @@ public class Consumer {
 
             add_project_command.setData(project_request);
             add_project_command.execute();
-            System.out.println("Project added successfully!");;
+            System.out.println("Project added successfully!");
         }
         else if(message.getMessage().equals("create_project_fail")){
             System.out.println("Opss! Transaction failed. OWNER does not exist.");;

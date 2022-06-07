@@ -11,8 +11,7 @@ import lombok.ToString;
 @ToString
 public class User_Request {
     private Long user_id;
-    private String github_link, interest, coding_language, preference, 
-    first_name, last_name, password, location;
+    private String github_link, interest, coding_language, preference, first_name, last_name, password, email, location;
 
     public User_Request(){
         user_id = null;
@@ -23,5 +22,7 @@ public class User_Request {
         last_name = null;
         password = null;
         coding_language = null;
+        email = null;
+        location = null;
     }
 }

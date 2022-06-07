@@ -1,7 +1,11 @@
 package com.tau.user.services.commands.edit_profile;
 
+import java.util.ArrayList;
+
 import org.springframework.stereotype.Service;
 
+import com.tau.user.models.UserAuth;
+import com.tau.user.repositories.UserAuth_Custom;
 import com.tau.user.repositories.User_Custom;
 import com.tau.user.repositories.User_Repository;
 import com.tau.user.requests.User_Request;
@@ -18,12 +22,32 @@ public class EditLastNameCommand extends CommandDP{
     private final User_Repository user_repository;
     private final User_Custom user_custom;
 
+    private final UserAuth_Custom userauth_custom;
+ 
+
+    public boolean isLoggedIn(Long user_id){
+        boolean flag = false;
+
+        ArrayList<UserAuth> list = userauth_custom.getUsers(user_id);
+
+        for(UserAuth userAuth : list){
+            if(userAuth.getLogoutTime() == null){
+                flag = true;
+                break;
+            }
+        }
+
+        return flag;
+    }
+
     @Override
     public String execute() {
         if(user_repository.findById(((User_Request) data).getUser_id()).isEmpty())
             return ERROR + " USER does not exist.";
 
-        
+        if(!isLoggedIn(((User_Request) data).getUser_id()))
+            return ERROR + " You are not logged in.";    
+            
         user_custom.updateLastName(((User_Request) data).getUser_id(), ((User_Request) data).getLast_name());
         return "Last name " + UPDATED_SUCCESS;
 

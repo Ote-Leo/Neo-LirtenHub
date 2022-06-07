@@ -253,6 +253,20 @@ public class User_CustomImp implements User_Custom{
         mongoTemplate.updateFirst(query, update, UserProfile.class);        
     }
 
- 
+    @Override
+    public boolean checkPassword(Long user_id, String password) throws NoSuchAlgorithmException {
+        Query query = new Query(Criteria.where("id").is(user_id));
+
+        UserProfile userProfile = mongoTemplate.findOne(query, UserProfile.class);
+
+        MessageDigest message_digest = MessageDigest.getInstance("SHA-256");
+        byte[] hashBytes = message_digest.digest(password.getBytes());
+        String passwordHash = new String(hashBytes);
+
+        if(userProfile.getPassword().equals(passwordHash))
+            return true;
+        else
+            return false;
+    }
     
 }

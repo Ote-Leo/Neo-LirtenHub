@@ -18,7 +18,6 @@ import com.tau.user.requests.Block_Request;
 import com.tau.user.requests.Report_Request;
 import com.tau.user.requests.UserAuth_Request;
 import com.tau.user.requests.User_Request;
-import com.tau.user.services.User_Service;
 import com.tau.user.services.commands.biography.AddBioCommand;
 import com.tau.user.services.commands.blocking.BlockCommand;
 import com.tau.user.services.commands.coding_languages.AddCodingLanguagesCommand;
@@ -36,6 +35,7 @@ import com.tau.user.services.commands.preferences.AddPreferenceCommand;
 import com.tau.user.services.commands.preferences.DeletePreferenceCommand;
 import com.tau.user.services.commands.preferences.GetPreferenceCommand;
 import com.tau.user.services.commands.registeration.AddLoginCommand;
+import com.tau.user.services.commands.registeration.RegisterCommand;
 import com.tau.user.services.commands.registeration.UpdateLogoutCommand;
 import com.tau.user.services.commands.reporting.GetReportsCommand;
 import com.tau.user.services.commands.reporting.ReportCommand;
@@ -75,31 +75,34 @@ public class User_Controller {
 
     private final AddLoginCommand add_login_command;
     private final UpdateLogoutCommand update_logout_command;
+    private final RegisterCommand registerCommand;
 
-    private final User_Service user_service;
 
     @Autowired
     RabbitTemplate template;
 
-    @PostMapping("/user")
-    public void postResult(@RequestBody UserProfile user) {
-        user_service.add_user(user);
+ 
+ // =======================User Authentication===========================//
+ @PostMapping(path = "api/user/userauth/register")
+ public String register(@RequestBody User_Request user_request) throws NoSuchAlgorithmException {
+     registerCommand.setData(user_request);
+     return registerCommand.execute();   
  }
 
-  // =======================User Authentication===========================//
-  @PostMapping(path = "api/user/userauth/add_login")
-  public String add_login(@RequestBody UserAuth_Request userauth_request) {
-      add_login_command.setData(userauth_request);
-      return add_login_command.execute();   
-  }
-  
-  @PutMapping("/api/session/usr/profile/editLogout/{User_ID}")
-  public String updatelogout(@PathVariable Long User_ID){
-        UserAuth_Request userAuth_request = new UserAuth_Request();
-        userAuth_request.setUser_id(User_ID);
-        update_logout_command.setData(userAuth_request);
-        return update_logout_command.execute();
-  }
+ @PostMapping(path = "api/user/userauth/add_login")
+ public String add_login(@RequestBody UserAuth_Request userauth_request) throws NoSuchAlgorithmException {
+     add_login_command.setData(userauth_request);
+     return add_login_command.execute();   
+ }
+ 
+ @PutMapping("/api/session/usr/profile/editLogout/{User_ID}")
+ public String updatelogout(@PathVariable Long User_ID){
+     UserAuth_Request userauth_request = new UserAuth_Request();
+   
+     userauth_request.setUser_id(User_ID);
+     update_logout_command.setData(userauth_request);
+     return update_logout_command.execute();
+ }
  
 
     // ==================PREFERENCE==================================

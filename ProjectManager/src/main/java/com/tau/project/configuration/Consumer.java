@@ -54,8 +54,7 @@ public class Consumer {
             project_preference_tags, price);
 
             add_project_command.setData(project_request);
-            add_project_command.execute();
-            System.out.println("Project added successfully!");
+            System.out.println(add_project_command.execute());
         }
         else if(message.getMessage().equals("create_project_fail")){
             System.out.println("Opss! Transaction failed. OWNER does not exist.");;

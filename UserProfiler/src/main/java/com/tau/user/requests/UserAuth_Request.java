@@ -14,6 +14,7 @@ public class UserAuth_Request {
     private Long user_id;
     private final LocalDateTime loginTime;
     private final LocalDateTime logoutTime;
+    private final String password;
 
   
     public UserAuth_Request(){
@@ -21,10 +22,7 @@ public class UserAuth_Request {
         this.user_id = null;
         this.loginTime = null;
         this.logoutTime=null;
+        this.password = null;
     }
-
-    // public void setUserId(Long user_id) {
-    //     this.user_id = user_id;
-    // }
 
 }

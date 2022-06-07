@@ -2,6 +2,7 @@ package com.tau.user.repositories;
 
 import java.time.LocalDateTime;
 import java.time.ZoneId;
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -42,6 +43,17 @@ public class UserAuth_CustomImp implements UserAuth_Custom{
             update.set("logoutTime",localDateTime );
             mongoTemplate.updateFirst(query1, update, UserAuth.class);
         }
+    }
+
+    @Override
+    public ArrayList<UserAuth> getUsers(long user_id) {
+
+        Query query = new Query(Criteria.where("user_id").is(user_id));
+
+        ArrayList<UserAuth> UserAuth = (ArrayList<UserAuth>) mongoTemplate.find(query, UserAuth.class);
+
+
+        return UserAuth;
     }
 
 }

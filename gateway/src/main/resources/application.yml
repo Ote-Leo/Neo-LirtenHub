@@ -1,0 +1,40 @@
+server:
+  port: 8000
+spring:
+  cloud:
+    gateway:
+      routes:
+      - id: authenticatorModule
+        uri: http://localhost:8086/
+        predicates:
+          - Path=/api/registration/**, /login/**
+      - id: geoLocatorModule
+        uri: http://localhost:8084/
+        predicates:
+          - Path=//**
+      - id: userProfilerModule
+        uri: http://localhost:8082/
+        predicates:
+          - Path=/api/session/usr/**, /api/user/**, /api/session/**, /api/user/userauth**
+      - id: projectMangerModule
+        uri: http://localhost:8081/
+        predicates:
+          - Path=/api/user/applicant_handler/**, /api/user/project_handler/**
+      - id: chatAppModule
+        uri: http://localhost:8085/
+        predicates:
+          - Path=/getMessages/**, /sendMessage/**, /sendImage/**, /getImage/**
+      - id: notificationAppModule
+        uri: http://localhost:8083/
+        predicates:
+          - Path=/notification/**   
+      globalcors:
+        cors-configurations:
+          '[/**]':
+            allowedOrigins: "http://localhost:3000"
+            allowedHeaders:
+              - "*"
+            allowedMethods:
+              - "GET"
+              - "POST"
+              - "OPTIONS"

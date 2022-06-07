@@ -4,7 +4,6 @@ import java.security.NoSuchAlgorithmException;
 
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cache.annotation.Cacheable;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -111,7 +110,7 @@ public class User_Controller {
 
     // ==================PREFERENCE==================================
     @GetMapping(value = "/api/session/usr/project_selection/preference/{user_id}")
-    @Cacheable(value = "preference", key = "#user_id")
+    //@Cacheable(value = "preference", key = "#user_id")
     public Object getPrefrences(@PathVariable long user_id) {
         User_Request user_request = new User_Request();
         user_request.setUser_id(user_id);
@@ -136,7 +135,7 @@ public class User_Controller {
     // ==================GITHUB==================================
 
     @GetMapping(value = "/api/session/attach_github_link/{user_id}")
-    @Cacheable(value = "github_link", key = "#user_id")
+    //@Cacheable(value = "github_link", key = "#user_id")
     public String getGitHubLink(@PathVariable long user_id) {
         User_Request user_request = new User_Request();
         user_request.setUser_id(user_id);
@@ -163,7 +162,7 @@ public class User_Controller {
 
     // ==================INTEREST==================================
     @GetMapping(value = "/api/session/usr/hobbies/{user_id}")
-    @Cacheable(value = "interests", key = "#user_id")
+    //@Cacheable(value = "interests", key = "#user_id")
     public Object getInterests(@PathVariable long user_id) {
         User_Request user_request = new User_Request();
         user_request.setUser_id(user_id);
@@ -236,7 +235,7 @@ public class User_Controller {
     }
 
     @GetMapping(value = "/api/session/moderator/project_selection/get_report/{user_id}")
-    @Cacheable(value = "reporting",key = "#user_id")
+    //@Cacheable(value = "reporting",key = "#user_id")
     public Object getReport(@PathVariable long user_id) {
         User_Request user = new User_Request();
         user.setUser_id(user_id);

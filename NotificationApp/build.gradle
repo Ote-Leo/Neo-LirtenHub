@@ -21,17 +21,16 @@ repositories {
 dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-data-mongodb'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
-	implementation 'org.springframework.boot:spring-boot-starter-amqp'
-	implementation 'org.springframework.boot:spring-boot-starter-jersey'
+	// implementation 'org.springframework.boot:spring-boot-starter-amqp'
+	// implementation 'org.springframework.boot:spring-boot-starter-jersey'
 	compileOnly 'org.projectlombok:lombok'
 	annotationProcessor 'org.projectlombok:lombok'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
-	testImplementation 'org.springframework.amqp:spring-rabbit-test'
+	// testImplementation 'org.springframework.amqp:spring-rabbit-test'
 	testImplementation 'de.flapdoodle.embed:de.flapdoodle.embed.mongo'
 	testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.2'
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.2'
-	implementation "org.springframework.data:spring-data-redis:1.8.0.RELEASE"
-	implementation "redis.clients:jedis:2.9.0"
+
 
 }
 

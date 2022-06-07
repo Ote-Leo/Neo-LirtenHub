@@ -14,6 +14,7 @@ import com.tau.user.requests.User_Request;
 
 import lombok.AllArgsConstructor;
 
+
 @Service
 @AllArgsConstructor
 public class GetGithubCommand extends CommandDP{
@@ -38,7 +39,8 @@ public class GetGithubCommand extends CommandDP{
 
         return flag;
     }
-
+    
+    @Async("asyncExecutor") 
     @Override
     public String execute() {
         if(!isLoggedIn(((User_Request) data).getUser_id()))

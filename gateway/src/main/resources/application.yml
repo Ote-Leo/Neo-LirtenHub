@@ -4,10 +4,6 @@ spring:
   cloud:
     gateway:
       routes:
-      - id: authenticatorModule
-        uri: http://localhost:8086/
-        predicates:
-          - Path=/api/registration/**, /login/**
       - id: geoLocatorModule
         uri: http://localhost:8084/
         predicates:

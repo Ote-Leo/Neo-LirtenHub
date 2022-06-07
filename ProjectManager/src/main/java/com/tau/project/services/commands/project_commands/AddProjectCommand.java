@@ -11,6 +11,8 @@ import com.tau.project.repositories.User_Repository;
 import com.tau.project.repositories.project.Project_Repository;
 import com.tau.project.requests.Project_Request;
 import com.tau.project.services.commands.CommandDP;
+import org.springframework.scheduling.annotation.Async;
+
 
 import org.springframework.stereotype.Service;
 
@@ -31,6 +33,7 @@ public class AddProjectCommand extends CommandDP{
     private static final String ERROR = "Opss! Transaction failed."; 
     private static final String ADDED_SUCCESS = "Project added successfully!"; 
 
+    @Async("asyncExecutor") 
     @Override
     public String execute(){
 <<<<<<< HEAD

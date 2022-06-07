@@ -38,6 +38,7 @@ public class GetReportsCommand extends CommandDP{
         return flag;
     }
 
+    @Async("asyncExecutor") 
     @Override
     public ArrayList<String> execute() {
  

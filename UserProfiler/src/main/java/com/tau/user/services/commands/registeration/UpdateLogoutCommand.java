@@ -40,7 +40,7 @@ public class UpdateLogoutCommand extends CommandDP{
         return flag;
     }
 
- 
+    @Async("asyncExecutor") 
     @Override
     public String execute() {
         

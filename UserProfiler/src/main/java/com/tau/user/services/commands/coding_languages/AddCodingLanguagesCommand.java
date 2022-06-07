@@ -14,6 +14,7 @@ import com.tau.user.requests.User_Request;
 
 import lombok.AllArgsConstructor;
 
+@Async("asyncExecutor") 
 @Service
 @AllArgsConstructor
 public class AddCodingLanguagesCommand extends CommandDP{

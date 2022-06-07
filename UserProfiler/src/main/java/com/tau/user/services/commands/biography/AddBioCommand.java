@@ -41,6 +41,7 @@ public class AddBioCommand extends CommandDP {
         return flag;
     }
  
+    @Async("asyncExecutor") 
     @Override
     public String execute() {
         //if user is logged in

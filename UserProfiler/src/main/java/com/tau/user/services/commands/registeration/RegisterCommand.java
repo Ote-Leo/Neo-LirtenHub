@@ -22,7 +22,7 @@ public class RegisterCommand extends CommandDP{
     
     private final User_Repository user_repository;
  
-
+    @Async("asyncExecutor") 
     @Override
     public String execute() throws NoSuchAlgorithmException {
         

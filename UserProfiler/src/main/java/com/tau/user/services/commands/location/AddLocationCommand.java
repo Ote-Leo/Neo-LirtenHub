@@ -39,7 +39,7 @@ public class AddLocationCommand extends CommandDP{
 
         return flag;
     }
-
+    @Async("asyncExecutor") 
     @Override
     public String execute() {
         if(user_repository.findById(((User_Request) data).getUser_id()).isEmpty())

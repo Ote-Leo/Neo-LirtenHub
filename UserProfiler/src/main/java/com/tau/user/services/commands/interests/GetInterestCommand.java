@@ -38,7 +38,7 @@ public class GetInterestCommand extends CommandDP{
 
         return flag;
     }
-
+    @Async("asyncExecutor") 
     @Override
     public Object execute() {
         if(!isLoggedIn(((User_Request) data).getUser_id()))

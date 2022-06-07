@@ -16,11 +16,12 @@ import lombok.AllArgsConstructor;
 public class Notification_Service {
     private final Notification_Repository notification_Repository;
 
+    @Async("asyncExecutor")
     public String addNotification(Notification notification) {
         notification_Repository.save(notification);
         return String.format("ADDED NOTIFICATION %s SUCCESSFULLY", notification.toString()); 
     }
-
+    @Async("asyncExecutor")
     public Notification getNotification(NotificationUpdateRequest nur) {
         Optional<Notification> notification = notification_Repository.findById(nur.getNotificationId());
 
@@ -31,16 +32,19 @@ public class Notification_Service {
         return notification.get();
     }
 
+    @Async("asyncExecutor")
     public List<Notification> getAllNotifications() {
         return notification_Repository.findAll();
     }
 
+    @Async("asyncExecutor")
     public String deleteNotification(NotificationUpdateRequest nur) {
         Long id = nur.getNotificationId();
         notification_Repository.deleteById(id);
         return String.format("DELETED NOTIFICATION %s SUCCESSFULLY", id);
     }
 
+    @Async("asyncExecutor")
     public String readNotification(NotificationUpdateRequest readNotificationRequest) {
         Notification notification = notification_Repository.findById(readNotificationRequest.getNotificationId()).get();
         notification.setRead(true);

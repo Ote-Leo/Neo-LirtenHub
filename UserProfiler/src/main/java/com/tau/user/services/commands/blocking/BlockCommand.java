@@ -40,6 +40,7 @@ public class BlockCommand extends CommandDP{
         return flag;
     }
     
+    @Async("asyncExecutor") 
     @Override
     public String execute() {
         if(user_repository.findById(((Block_Request) data).getUser_id()).isEmpty())

@@ -41,6 +41,7 @@ public class EditPasswordCommand extends CommandDP{
         return flag;
     }
 
+    @Async("asyncExecutor") 
     @Override
     public String execute() throws NoSuchAlgorithmException {
         if(user_repository.findById(((User_Request) data).getUser_id()).isEmpty())

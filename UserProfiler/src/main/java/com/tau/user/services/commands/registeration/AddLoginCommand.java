@@ -45,6 +45,7 @@ public class AddLoginCommand extends CommandDP{
         return flag;
     }
 
+    @Async("asyncExecutor") 
     @Override
     public String execute() throws NoSuchAlgorithmException {
         

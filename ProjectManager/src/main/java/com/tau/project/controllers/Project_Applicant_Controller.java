@@ -7,7 +7,10 @@ import com.tau.project.services.commands.project_applicant_commands.ApplyApplica
 import com.tau.project.services.commands.project_applicant_commands.RemoveApplicantCommand;
 
 import org.springframework.web.bind.annotation.PostMapping;
+<<<<<<< HEAD
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
+=======
+>>>>>>> ec9629f7f2f94d741d158ae74166ffce178b857d
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -24,7 +27,10 @@ public class Project_Applicant_Controller {
     private final ApplyApplicantCommand apply_applicant_command;
     private final RemoveApplicantCommand remove_applicant_command;
 
+<<<<<<< HEAD
     RabbitTemplate rabbitTemplate;
+=======
+>>>>>>> ec9629f7f2f94d741d158ae74166ffce178b857d
     @PostMapping(path = "add_applicant")
     public String add_applicant(@RequestBody Apply_Request project_applicant) {
         apply_applicant_command.setData(project_applicant);

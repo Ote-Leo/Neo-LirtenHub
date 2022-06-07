@@ -1,6 +1,9 @@
 package com.tau.project.services.commands.project_commands;
 
+<<<<<<< HEAD
 import java.io.Serializable;
+=======
+>>>>>>> ec9629f7f2f94d741d158ae74166ffce178b857d
 import java.util.ArrayList;
 
 import com.tau.project.models.Project;
@@ -16,7 +19,11 @@ import lombok.AllArgsConstructor;
 
 @Service
 @AllArgsConstructor
+<<<<<<< HEAD
 public class AddProjectCommand extends CommandDP implements Serializable{
+=======
+public class AddProjectCommand extends CommandDP{
+>>>>>>> ec9629f7f2f94d741d158ae74166ffce178b857d
 
     private final Project_Repository project_repository;
     private final User_Repository user_repsitory;
@@ -26,6 +33,10 @@ public class AddProjectCommand extends CommandDP implements Serializable{
 
     @Override
     public String execute(){
+<<<<<<< HEAD
+=======
+        
+>>>>>>> ec9629f7f2f94d741d158ae74166ffce178b857d
         if(user_repsitory.findById(((Project_Request) data).getOwner_id()).isEmpty())
             return ERROR + " OWNER does not exist.";
 

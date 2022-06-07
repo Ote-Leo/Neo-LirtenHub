@@ -29,6 +29,7 @@ public class AcceptApplicantCommand extends CommandDP {
     @Override
     public String execute() {
         if (user_repository.findById(((Accept_Request) data).getUser_id()).isEmpty())
+<<<<<<< HEAD
             throw new IllegalStateException(ERROR + " USER does not exist");
         if (user_repository.findById(((Accept_Request) data).getOwner_id()).isEmpty())
             throw new IllegalStateException(ERROR + " OWNER does not exist");
@@ -37,6 +38,16 @@ public class AcceptApplicantCommand extends CommandDP {
         if (project_repository.findById(((Accept_Request) data).getProject_id()).get().getOwner_id() != ((Accept_Request) data)
                 .getOwner_id())
                 throw new IllegalStateException(ERROR + " PROJECT OWNER is the only one allowed to do this transaction.");
+=======
+            return ERROR + " USER does not exist";
+        if (user_repository.findById(((Accept_Request) data).getOwner_id()).isEmpty())
+            return ERROR + " OWNER does not exist";
+        if (project_repository.findById(((Accept_Request) data).getProject_id()).isEmpty())
+            return ERROR + " PROJECT does not exist.";
+        if (project_repository.findById(((Accept_Request) data).getProject_id()).get().getOwner_id() != ((Accept_Request) data)
+                .getOwner_id())
+            return ERROR + " PROJECT OWNER is the only one allowed to do this transaction.";
+>>>>>>> ec9629f7f2f94d741d158ae74166ffce178b857d
 
         ArrayList<Project_Applicant> list = (ArrayList<Project_Applicant>) project_applicant_repository.findAll();
         boolean flag = false;
@@ -54,7 +65,11 @@ public class AcceptApplicantCommand extends CommandDP {
             applicant_custom.accept_project_applier(((Accept_Request) data).getUser_id(), ((Accept_Request) data).getProject_id());
             return ACCEPT_SUCCESS;
         } else
+<<<<<<< HEAD
             throw new IllegalStateException(ERROR + " There is no such project applicant.");
+=======
+            return ERROR + " There is no such project applicant.";
+>>>>>>> ec9629f7f2f94d741d158ae74166ffce178b857d
     }
 
 }

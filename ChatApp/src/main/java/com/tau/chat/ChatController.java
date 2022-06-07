@@ -118,7 +118,6 @@ public class ChatController {
 	}
 	
 	@PostMapping("/sendMessage/{usersID}")
-	@Cacheable(value = "messages", key = "#usersID")
 	public int saveMessage(@RequestBody ChatMessage message, @PathVariable("usersID") String usersID) {
 		CollectionReference chatMessageCR = db.getFirebase().collection(usersID);
         SimpleDateFormat ISO_8601_FORMAT = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:sss'Z'");
@@ -129,7 +128,6 @@ public class ChatController {
 	
 	//public static void uploadObject(String projectId, String bucketName, String objectName, String filePath) throws IOException
 	@PostMapping("/sendImage/{usersID}")
-	@Cacheable(value = "messages", key = "#usersID")
 	public void uploadObject(@RequestBody ChatMessage message, @PathVariable("usersID") String usersID) throws IOException {
 		    // The ID of your GCP project
 		    // String projectId = "your-project-id";

@@ -10,8 +10,6 @@
     - [1. Get Messages](#get-messages)
     - [2. Send Message](#send-message)
     - [3. Close Listener](#close-listener)
-    - [4. Send Image](#send-image)
-    - [5. Get Image](#get-image)
 
 </hr>
 
@@ -78,50 +76,6 @@ body {
     Success
 { 
      1-2 listener closed
-}
-
-    Failure
-{ 
-
-}
-```
-
-### 4.  Send Image
-
-```json
-    Create a `POST /sendImage/{usersID}` request
-
-body {
-     {
-        "messageID": 2,
-        "messageText": "C:\\Users\\Documents\\Demo.png",
-        "messageUser": "User1_Name"
-    }
-}
-
-    Success
-{ 
-
-}
-
-    Failure
-{ 
-
-}
-```
-
-### 5.  Get Image
-
-```json
-    Create a `GET /getImage/{ID}` request
-
-body {
-
-}
-
-    Success
-{ 
-     
 }
 
     Failure

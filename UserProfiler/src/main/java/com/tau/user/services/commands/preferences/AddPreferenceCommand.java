@@ -47,7 +47,7 @@ public class AddPreferenceCommand extends CommandDP{
             return ERROR + "USER does not exist.";
 
         if(!isLoggedIn(((User_Request) data).getUser_id()))
-            return ERROR + " You are not logged in.";  
+            return ERROR + " You are not logged in.";
 
         if(user_custom.getPreferences(((User_Request) data).getUser_id()) != null && 
         user_custom.getPreferences(((User_Request) data).getUser_id()).contains(((User_Request) data).getPreference()))

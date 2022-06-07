@@ -42,8 +42,7 @@ public class GetPreferenceCommand extends CommandDP{
     @Override
     public Object execute() {
         if(!isLoggedIn(((User_Request) data).getUser_id()))
-            return ERROR + " You are not logged in.";  
-            
+            return ERROR + " You are not logged in.";
         Optional<UserProfile> list = user_repository.findById(((User_Request) data).getUser_id());
         
         if(list.isEmpty())

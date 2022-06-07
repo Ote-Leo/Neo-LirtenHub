@@ -6,6 +6,7 @@ import com.tau.project.requests.Project_Request;
 import com.tau.project.services.commands.project_commands.DeleteProjectCommand;
 import com.tau.project.services.commands.project_commands.UpdateProjectCommand;
 
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,6 +29,7 @@ public class Project_Controller {
     RabbitTemplate template;
 
     @PostMapping(path = "create_project")
+    @Cacheable(value = "created_projects",key = "#project.getId()")
     public void add_project(@RequestBody Project_Request project) {
 
         Message message = new Message();
@@ -46,6 +48,7 @@ public class Project_Controller {
     }
 
     @PutMapping(path = "update_project")
+    @Cacheable(value = "updated_projects",key = "#project.getId()")
     public String update_project(@RequestBody Project_Request project) {
         update_project_command.setData(project);      
         return update_project_command.execute();

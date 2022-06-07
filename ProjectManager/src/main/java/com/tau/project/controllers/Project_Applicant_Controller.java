@@ -6,6 +6,7 @@ import com.tau.project.services.commands.project_applicant_commands.AcceptApplic
 import com.tau.project.services.commands.project_applicant_commands.ApplyApplicantCommand;
 import com.tau.project.services.commands.project_applicant_commands.RemoveApplicantCommand;
 
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -24,6 +25,7 @@ public class Project_Applicant_Controller {
     private final RemoveApplicantCommand remove_applicant_command;
 
     @PostMapping(path = "add_applicant")
+    @Cacheable(value = "added_applicant",key = "#project_applicant.getProject_id()")
     public String add_applicant(@RequestBody Apply_Request project_applicant) {
         apply_applicant_command.setData(project_applicant);
         return apply_applicant_command.execute();
@@ -36,6 +38,7 @@ public class Project_Applicant_Controller {
     }
 
     @PutMapping(path = "accept_applicant")
+    @Cacheable(value = "accepted_applicant",key = "#accept_applicant.getProject_id()")
     public String accept_applicant(@RequestBody Accept_Request project_applicant) {
         accept_applicant_command.setData(project_applicant);
         return accept_applicant_command.execute();

@@ -23,8 +23,6 @@
 - [x] Get Messages
 - [x] Send Message
 - [x] Messages Listener
-- [x] Send Image
-- [x] Get Image
 
 ## Dependencies
 

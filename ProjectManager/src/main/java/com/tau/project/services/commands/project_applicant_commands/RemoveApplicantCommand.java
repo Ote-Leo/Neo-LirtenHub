@@ -45,7 +45,11 @@ public class RemoveApplicantCommand extends CommandDP {
 
         if(flag){
             CompositeKey key = new CompositeKey(((Apply_Request) data).getUser_id(), ((Apply_Request) data).getProject_id());
-            project_applicant_repsitory.delete(new Project_Applicant(key, false));
+            
+            Project_Applicant project_Applicant = new Project_Applicant();
+            project_Applicant.setId(key);
+            
+            project_applicant_repsitory.delete(project_Applicant);
             return DELETE_SUCCESS;
         }else
             return ERROR + " There is no such project applicant.";  

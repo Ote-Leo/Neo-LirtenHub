@@ -7,8 +7,8 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 import lombok.*;
 
-@Setter
 @Getter
+@Setter
 @EqualsAndHashCode
 @AllArgsConstructor
 @NoArgsConstructor
@@ -18,6 +18,7 @@ public class Project_Applicant {
     @Getter
     @Setter
     @AllArgsConstructor
+    @NoArgsConstructor
     public static class CompositeKey implements Serializable {
         private Long user_id;
         private Long project_id;
@@ -26,8 +27,7 @@ public class Project_Applicant {
     @Id
     private CompositeKey id;
     private boolean isAccepted;
+    private boolean isFinished;
+    private boolean isPaid;
     
-    public void setAccepted(boolean isAccepted) {
-        this.isAccepted = isAccepted;
-    } 
 }

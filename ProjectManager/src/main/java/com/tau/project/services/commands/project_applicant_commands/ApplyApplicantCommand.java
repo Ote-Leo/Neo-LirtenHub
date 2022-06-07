@@ -31,7 +31,7 @@ public class ApplyApplicantCommand extends CommandDP{
             return ERROR + " PROJECT does not exist.";    
 
         CompositeKey key = new CompositeKey(((Apply_Request) data).getUser_id(), ((Apply_Request) data).getProject_id());
-        project_applicant_repository.save(new Project_Applicant(key, false));
+        project_applicant_repository.save(new Project_Applicant(key, false, false, false));
         return ADDED_SUCCESS;
     }
     

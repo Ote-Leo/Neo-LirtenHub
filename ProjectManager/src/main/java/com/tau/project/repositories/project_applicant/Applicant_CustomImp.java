@@ -27,4 +27,31 @@ public class Applicant_CustomImp implements Applicant_Custom{
 
         mongoTemplate.updateFirst(query, update, Project_Applicant.class);
     }
+
+    @Override
+    public void finish_project(Long user_id, Long project_id) {
+        Query query = new Query();
+
+        query.addCriteria(Criteria.where("_id").is(new CompositeKey(user_id, project_id)));
+        //query.addCriteria(Criteria.where("project_id").is(project_id));
+        Update update = new Update();
+        
+        update.set("isFinished", true);
+
+        mongoTemplate.updateFirst(query, update, Project_Applicant.class);        
+    }
+
+    @Override
+    public void pay_user(Long user_id, Long project_id) {
+        Query query = new Query();
+
+        query.addCriteria(Criteria.where("_id").is(new CompositeKey(user_id, project_id)));
+        //query.addCriteria(Criteria.where("project_id").is(project_id));
+        Update update = new Update();
+        
+        update.set("isPaid", true);
+
+        mongoTemplate.updateFirst(query, update, Project_Applicant.class);  
+        
+    }
 }

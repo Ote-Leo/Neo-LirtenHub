@@ -21,5 +21,6 @@ public class Project {
     private Date start_date, end_date;
     private ArrayList<String> tasks, project_programming_languages, project_preference_tags;
     private Double price;
-
+    
 }
+

@@ -4,6 +4,7 @@ import java.security.NoSuchAlgorithmException;
 
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -13,11 +14,13 @@ import org.springframework.web.bind.annotation.PutMapping;
 import com.tau.user.RabbitMQConfiguration.Message;
 import com.tau.user.RabbitMQConfiguration.RabbitMQConfiguration;
 import com.tau.user.models.UserProfile;
+import com.tau.user.requests.Ban_Request;
 import com.tau.user.requests.Bio_Request;
 import com.tau.user.requests.Block_Request;
 import com.tau.user.requests.Report_Request;
 import com.tau.user.requests.UserAuth_Request;
 import com.tau.user.requests.User_Request;
+import com.tau.user.services.commands.banning.BanCommand;
 import com.tau.user.services.commands.biography.AddBioCommand;
 import com.tau.user.services.commands.blocking.BlockCommand;
 import com.tau.user.services.commands.coding_languages.AddCodingLanguagesCommand;
@@ -62,6 +65,7 @@ public class User_Controller {
 
     private final AddBioCommand add_bio_command;
     private final BlockCommand block_command;
+    private final BanCommand ban_command;
     private final ReportCommand report_command;
 
     private final EditFirstNameCommand editFirstNameCommand;
@@ -107,6 +111,7 @@ public class User_Controller {
 
     // ==================PREFERENCE==================================
     @GetMapping(value = "/api/session/usr/project_selection/preference/{user_id}")
+    @Cacheable(value = "preference", key = "#user_id")
     public Object getPrefrences(@PathVariable long user_id) {
         User_Request user_request = new User_Request();
         user_request.setUser_id(user_id);
@@ -131,6 +136,7 @@ public class User_Controller {
     // ==================GITHUB==================================
 
     @GetMapping(value = "/api/session/attach_github_link/{user_id}")
+    @Cacheable(value = "github_link", key = "#user_id")
     public String getGitHubLink(@PathVariable long user_id) {
         User_Request user_request = new User_Request();
         user_request.setUser_id(user_id);
@@ -157,6 +163,7 @@ public class User_Controller {
 
     // ==================INTEREST==================================
     @GetMapping(value = "/api/session/usr/hobbies/{user_id}")
+    @Cacheable(value = "interests", key = "#user_id")
     public Object getInterests(@PathVariable long user_id) {
         User_Request user_request = new User_Request();
         user_request.setUser_id(user_id);
@@ -228,8 +235,12 @@ public class User_Controller {
         return addCodingLanguagesCommand.execute();
     }
 
-    @GetMapping(value = "/api/session/usr/project_selection/get_report")
-    public Object getReport() {
+    @GetMapping(value = "/api/session/moderator/project_selection/get_report/{user_id}")
+    @Cacheable(value = "reporting",key = "#user_id")
+    public Object getReport(@PathVariable long user_id) {
+        User_Request user = new User_Request();
+        user.setUser_id(user_id);
+        getReport_command.setData(user);
         return getReport_command.execute();
     }
 
@@ -250,6 +261,13 @@ public class User_Controller {
 
         template.convertAndSend(RabbitMQConfiguration.EXCHANGE, RabbitMQConfiguration.GEO_ROUTING_KEY, message);      
     
+    }
+
+    @PostMapping("/api/session/moderator/ban_user/{user_id}")
+    public String ban_request(@PathVariable long user_id, @RequestBody Ban_Request ban_request) {
+        ban_request.setUser_id(user_id);
+        ban_command.setData(ban_request);
+        return ban_command.execute();
     }
 }
 

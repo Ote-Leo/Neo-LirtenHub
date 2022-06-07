@@ -23,6 +23,8 @@ public interface User_Custom {
     public ArrayList<String> getLanguages(Long user_id);
     public void updateLocation(long user_id, String city_name);
     public boolean checkPassword (Long user_id, String password) throws NoSuchAlgorithmException;
+    public boolean checkUniqueEmail(String email);
+    public boolean isModerator(Long user_id);
 
 }
 

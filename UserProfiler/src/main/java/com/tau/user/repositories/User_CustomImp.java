@@ -5,6 +5,7 @@ import java.util.ArrayList;
 
 import com.tau.user.models.Report;
 import com.tau.user.models.UserProfile;
+import com.tau.user.models.UserRole;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
@@ -268,5 +269,32 @@ public class User_CustomImp implements User_Custom{
         else
             return false;
     }
+
+    @Override
+    public boolean checkUniqueEmail(String email) {
+        boolean flag = true;
+
+        Query query = new Query(Criteria.where("email").is(email));
+
+        UserProfile userProfile = mongoTemplate.findOne(query, UserProfile.class);
+
+        if(userProfile != null)
+            flag = false;
+        
+        return flag;
+    }
+
+    @Override
+    public boolean isModerator(Long user_id) {
+        Query query = new Query(Criteria.where("id").is(user_id));
+
+        UserProfile userProfile = mongoTemplate.findOne(query, UserProfile.class);
+
+        if(userProfile.getUserRole() == UserRole.MODERATOR)
+            return true;
+        else
+            return false;
+    }
+
     
 }

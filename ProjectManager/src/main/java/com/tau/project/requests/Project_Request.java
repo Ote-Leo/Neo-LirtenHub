@@ -17,7 +17,7 @@ public class Project_Request {
     private final ArrayList<String> tasks, project_programming_languages, project_preference_tags;
     private final Double price;
 
-    public Project_Request(Long project_id, Long owner_id, String project_title, String project_description, String status, Date start_date, Date end_date, ArrayList<String> tasks, ArrayList<String> project_programming_languages, ArrayList<String> project_preference_tags, Double price ){
+    public Project_Request(Long project_id, Long owner_id, String project_title, String project_description, String status, Date start_date, Date end_date, ArrayList<String> tasks, ArrayList<String> project_programming_languages, ArrayList<String> project_preference_tags, Double price) {
         this.project_id = project_id;
         this.owner_id = owner_id;
         this.project_title = project_title;

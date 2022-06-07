@@ -21,8 +21,9 @@ import lombok.ToString;
 @Document(collection = "notifications")
 public class Notification {
     @Id
-    private long id, userId;
+    private Long id;
+    private Long userId;
     private Date timestamp;
-    private String title, message, userEmail;
+    private String message, userEmail;
     private boolean read;    
 }

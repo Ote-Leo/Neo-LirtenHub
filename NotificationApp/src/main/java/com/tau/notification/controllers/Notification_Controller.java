@@ -1,5 +1,6 @@
 package com.tau.notification.controllers;
 
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -10,6 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.tau.notification.models.Notification;
 import com.tau.notification.repositories.Notification_Repository;
 import com.tau.notification.requests.NotificationUpdateRequest;
+import com.tau.notification.services.Notification_Service;
 
 import java.util.List;
 import java.util.Optional;
@@ -21,20 +23,21 @@ import lombok.AllArgsConstructor;
 @AllArgsConstructor
 public class Notification_Controller {
     private final Notification_Repository notification_Repository;
+    private final Notification_Service notification_Service;
+
     
     @PostMapping("/add")
-    public void sendNotification(@RequestBody Notification notification) {
-        notification_Repository.save(notification);
+    public String sendNotification(@RequestBody Notification notification) {
+        return notification_Service.addNotification(notification);
     }
 
     @PostMapping("/read")
     public void readNotification(@RequestBody NotificationUpdateRequest readNotificationRequest) {
-        Notification notification = notification_Repository.findById(readNotificationRequest.getNotificationId()).get();
-        notification.setRead(true);
-        notification_Repository.save(notification);
+        notification_Service.updateReadStatus(readNotificationRequest.getNotificationId());
     }
 
     @GetMapping("/get/{id}")
+    @Cacheable(value = "notification", key = "#id")
     public Notification getNotification(@PathVariable Long id) {
         Optional<Notification> notification = notification_Repository.findById(id);
 
@@ -45,6 +48,7 @@ public class Notification_Controller {
     }
 
     @GetMapping("/all")
+    @Cacheable(value = "notifications",key = "#id")
     public List<Notification> getAllNotifications() {
         return notification_Repository.findAll();
     }

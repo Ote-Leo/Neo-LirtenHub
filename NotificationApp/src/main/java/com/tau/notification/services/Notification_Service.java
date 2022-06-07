@@ -3,9 +3,10 @@ package com.tau.notification.services;
 import java.util.List;
 import java.util.Optional;
 
-import org.jvnet.hk2.annotations.Service;
+import org.springframework.stereotype.Service;
 
 import com.tau.notification.models.Notification;
+import com.tau.notification.repositories.Notification_Custom;
 import com.tau.notification.repositories.Notification_Repository;
 import com.tau.notification.requests.NotificationUpdateRequest;
 
@@ -15,6 +16,8 @@ import lombok.AllArgsConstructor;
 @AllArgsConstructor
 public class Notification_Service {
     private final Notification_Repository notification_Repository;
+    private final Notification_Custom notification_Custom;
+
 
     public String addNotification(Notification notification) {
         notification_Repository.save(notification);
@@ -46,5 +49,10 @@ public class Notification_Service {
         notification.setRead(true);
         notification_Repository.save(notification);
         return String.format("READ NOTIFICATION %s SUCCESSFULLY", notification.toString());
+    }
+
+    public String updateReadStatus(Long notificationId) {
+        notification_Custom.updateReadStatus(notificationId);
+        return "READ STATUS UPDATED";
     }
 }

@@ -1,5 +1,7 @@
 package com.tau.user.requests;
 
+import com.tau.user.models.UserRole;
+
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
@@ -12,6 +14,8 @@ import lombok.ToString;
 public class User_Request {
     private Long user_id;
     private String github_link, interest, coding_language, preference, first_name, last_name, password, email, location;
+    private UserRole userRole;
+
 
     public User_Request(){
         user_id = null;
@@ -24,5 +28,6 @@ public class User_Request {
         coding_language = null;
         email = null;
         location = null;
+        userRole = null;
     }
 }

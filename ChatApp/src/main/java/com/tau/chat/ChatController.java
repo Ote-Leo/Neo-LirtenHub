@@ -10,6 +10,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -78,6 +79,7 @@ public class ChatController {
 	}
 	
 	@GetMapping("/getMessages/close/{usersID}")
+	@Cacheable(value = "messages", key = "#usersID")
 	public String ListenerStop(@PathVariable("usersID") String usersID) {
 		CollectionReference colRef = db.getFirebase().collection(usersID);
 		ListenerRegistration listenerRegistration = listenerRegistrationMap.get(colRef.getId());
@@ -92,6 +94,7 @@ public class ChatController {
 	}
 	
 	@GetMapping("/getMessages/{usersID}")
+	@Cacheable(value = "messages", key = "#usersID")
 	public ArrayList<ChatMessage> getMessages(@PathVariable("usersID") String usersID) {
 		ArrayList<ChatMessage> chatMessageList = new ArrayList<ChatMessage>();
 		CollectionReference chatMessageCR = db.getFirebase().collection(usersID);
@@ -115,6 +118,7 @@ public class ChatController {
 	}
 	
 	@PostMapping("/sendMessage/{usersID}")
+	@Cacheable(value = "messages", key = "#usersID")
 	public int saveMessage(@RequestBody ChatMessage message, @PathVariable("usersID") String usersID) {
 		CollectionReference chatMessageCR = db.getFirebase().collection(usersID);
         SimpleDateFormat ISO_8601_FORMAT = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:sss'Z'");
@@ -125,6 +129,7 @@ public class ChatController {
 	
 	//public static void uploadObject(String projectId, String bucketName, String objectName, String filePath) throws IOException
 	@PostMapping("/sendImage/{usersID}")
+	@Cacheable(value = "messages", key = "#usersID")
 	public void uploadObject(@RequestBody ChatMessage message, @PathVariable("usersID") String usersID) throws IOException {
 		    // The ID of your GCP project
 		    // String projectId = "your-project-id";
@@ -162,6 +167,7 @@ public class ChatController {
 	
 	//public void downloadObject(String projectId, String bucketName, String objectName, String destFilePath)
 	@GetMapping("/getImage/{ID}")
+	@Cacheable(value = "messages", key = "#ID")
 	public void downloadObject(@PathVariable("ID") String usersID) {
 		    // The ID of your GCP project
 		    // String projectId = "your-project-id";

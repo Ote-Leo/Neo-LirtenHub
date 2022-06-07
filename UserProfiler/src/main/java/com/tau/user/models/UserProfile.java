@@ -16,7 +16,7 @@ import lombok.*;
 public class UserProfile {
     @Id
     private Long id;
-    private String firstName, lastName, email, gitHubLink, bio_section, password;
+    private String firstName, lastName, email, gitHubLink, bio_section, password, location;
     private ArrayList<String> projectPreferenceTags, interests, codingLanguages;
     private ArrayList<Long> blocked_users;
     private ArrayList<Report> reported_users; 

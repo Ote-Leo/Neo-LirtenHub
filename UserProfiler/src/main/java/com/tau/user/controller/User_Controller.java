@@ -2,16 +2,21 @@ package com.tau.user.controller;
 
 import java.security.NoSuchAlgorithmException;
 
+import org.springframework.amqp.rabbit.core.RabbitTemplate;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 
+import com.tau.user.RabbitMQConfiguration.Message;
+import com.tau.user.RabbitMQConfiguration.RabbitMQConfiguration;
 import com.tau.user.models.UserProfile;
 import com.tau.user.requests.Bio_Request;
 import com.tau.user.requests.Block_Request;
 import com.tau.user.requests.Report_Request;
+import com.tau.user.requests.UserAuth_Request;
 import com.tau.user.requests.User_Request;
 import com.tau.user.services.User_Service;
 import com.tau.user.services.commands.biography.AddBioCommand;
@@ -26,9 +31,12 @@ import com.tau.user.services.commands.github_link.GetGithubCommand;
 import com.tau.user.services.commands.interests.AddInterestCommand;
 import com.tau.user.services.commands.interests.DeleteInterestCommand;
 import com.tau.user.services.commands.interests.GetInterestCommand;
+import com.tau.user.services.commands.location.AddLocationCommand;
 import com.tau.user.services.commands.preferences.AddPreferenceCommand;
 import com.tau.user.services.commands.preferences.DeletePreferenceCommand;
 import com.tau.user.services.commands.preferences.GetPreferenceCommand;
+import com.tau.user.services.commands.registeration.AddLoginCommand;
+import com.tau.user.services.commands.registeration.UpdateLogoutCommand;
 import com.tau.user.services.commands.reporting.GetReportsCommand;
 import com.tau.user.services.commands.reporting.ReportCommand;
 
@@ -63,13 +71,36 @@ public class User_Controller {
     private final AddCodingLanguagesCommand addCodingLanguagesCommand; 
     private final GetReportsCommand getReport_command;
 
+    private final AddLocationCommand add_location_manual;
+
+    private final AddLoginCommand add_login_command;
+    private final UpdateLogoutCommand update_logout_command;
+
     private final User_Service user_service;
 
+    @Autowired
+    RabbitTemplate template;
 
     @PostMapping("/user")
     public void postResult(@RequestBody UserProfile user) {
         user_service.add_user(user);
  }
+
+  // =======================User Authentication===========================//
+  @PostMapping(path = "api/user/userauth/add_login")
+  public String add_login(@RequestBody UserAuth_Request userauth_request) {
+      add_login_command.setData(userauth_request);
+      return add_login_command.execute();   
+  }
+  
+  @PutMapping("/api/session/usr/profile/editLogout/{User_ID}")
+  public String updatelogout(@PathVariable Long User_ID){
+        UserAuth_Request userAuth_request = new UserAuth_Request();
+        userAuth_request.setUser_id(User_ID);
+        update_logout_command.setData(userAuth_request);
+        return update_logout_command.execute();
+  }
+ 
 
     // ==================PREFERENCE==================================
     @GetMapping(value = "/api/session/usr/project_selection/preference/{user_id}")
@@ -197,6 +228,25 @@ public class User_Controller {
     @GetMapping(value = "/api/session/usr/project_selection/get_report")
     public Object getReport() {
         return getReport_command.execute();
+    }
+
+
+    @PostMapping("/api/session/usr/add_location/manual/{user_id}")
+    public String add_location_manually(@PathVariable long user_id, @RequestBody User_Request user) {
+        user.setUser_id(user_id);
+        add_location_manual.setData(user);
+        return add_location_manual.execute();
+    }
+
+    @PostMapping("/api/session/usr/add_location/automatic/{user_id}")
+    public void add_location_automatically(@PathVariable long user_id) {
+        User_Request user_request = new User_Request();
+        user_request.setUser_id(user_id);
+        Message message = new Message();
+        message.setData(user_request);
+
+        template.convertAndSend(RabbitMQConfiguration.EXCHANGE, RabbitMQConfiguration.GEO_ROUTING_KEY, message);      
+    
     }
 }
 

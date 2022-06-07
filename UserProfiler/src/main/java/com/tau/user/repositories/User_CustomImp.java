@@ -243,5 +243,16 @@ public class User_CustomImp implements User_Custom{
 
         return userProfile.getCodingLanguages();
     }
+
+    @Override
+    public void updateLocation(long user_id, String city_name) {
+        Query query = new Query(Criteria.where("id").is(user_id));
+        Update update = new Update();
+        update.set("location", city_name);
+    
+        mongoTemplate.updateFirst(query, update, UserProfile.class);        
+    }
+
+ 
     
 }

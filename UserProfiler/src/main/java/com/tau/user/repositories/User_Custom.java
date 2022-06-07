@@ -21,6 +21,7 @@ public interface User_Custom {
     public void updateReport(Long user_id, Long reported_id, String report_description);
     public void updateLanguage(long user_id, String coding_language);
     public ArrayList<String> getLanguages(Long user_id);
+    public void updateLocation(long user_id, String city_name);
 
 }
 

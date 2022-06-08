@@ -14,9 +14,14 @@ public class RabbitMQConfiguration {
     public static final String EXCHANGE = "exchange";
     public static final String PROJECT_ROUTING_KEY = "project_routing_key";
     public static final String PROJECT_QUEUE = "project_queue";
+   
     public static final String USER_QUEUE = "user_queue";
+    
     public static final String GEO_QUEUE = "geo_queue";
     public static final String GEO_ROUTING_KEY = "geo_routing_key";
+
+    public static final String NOTIFICATION_QUEUE = "notification_queue";
+    public static final String NOTIFICATION_ROUTING_KEY = "notification_routing_key";
 
     @Bean
     public Queue userProjectQueue(){
@@ -39,6 +44,16 @@ public class RabbitMQConfiguration {
     }
 
     @Bean
+    public Queue userNotificationQueue(){
+        return new Queue(NOTIFICATION_QUEUE);
+    }
+
+    @Bean
+    public Queue notificationUserQueue(){
+        return new Queue(USER_QUEUE);
+    }
+
+    @Bean
     public MessageConverter converter(){
         return new Jackson2JsonMessageConverter();
     }
@@ -56,6 +71,11 @@ public class RabbitMQConfiguration {
     @Bean
     public Binding bindingUserGeoQueue(TopicExchange exchange){
         return BindingBuilder.bind(userGeoQueue()).to(exchange).with(GEO_ROUTING_KEY);
+    }
+
+    @Bean
+    public Binding bindingUserNotificationQueue(TopicExchange exchange){
+        return BindingBuilder.bind(userNotificationQueue()).to(exchange).with(NOTIFICATION_ROUTING_KEY);
     }
 
 }

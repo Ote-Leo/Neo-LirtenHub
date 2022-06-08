@@ -8,7 +8,6 @@ import com.tau.project.repositories.project.Project_Repository;
 import com.tau.project.requests.Project_Request;
 import com.tau.project.services.commands.CommandDP;
 
-import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
 import lombok.AllArgsConstructor;
@@ -24,12 +23,11 @@ public class AddProjectCommand extends CommandDP{
     private static final String ERROR = "Opss! Transaction failed."; 
     private static final String ADDED_SUCCESS = "Project added successfully!"; 
 
-    @Async("asyncExecutor")
     @Override
     public String execute(){
         
-        if(user_repsitory.findById(((Project_Request) data).getOwner_id()).isEmpty())
-            return ERROR + " OWNER does not exist.";
+        // if(user_repsitory.findById(((Project_Request) data).getOwner_id()).isEmpty())
+        //     return ERROR + " OWNER does not exist.";
 
         project_repository.save(new Project(getNextProjectID(), ((Project_Request) data).getOwner_id(), ((Project_Request) data).getProject_title(), ((Project_Request) data).getProject_description(), ((Project_Request) data).getStatus(), ((Project_Request) data).getStart_date(), ((Project_Request) data).getEnd_date(), ((Project_Request) data).getTasks(), ((Project_Request) data).getProject_programming_languages(), ((Project_Request) data).getProject_preference_tags(), ((Project_Request) data).getPrice()));
         return ADDED_SUCCESS;

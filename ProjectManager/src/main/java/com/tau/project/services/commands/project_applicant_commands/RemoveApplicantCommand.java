@@ -10,7 +10,6 @@ import com.tau.project.repositories.project_applicant.Project_Applicant_Reposito
 import com.tau.project.services.commands.CommandDP;
 import com.tau.project.requests.Apply_Request;
 
-import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
 import lombok.AllArgsConstructor;
@@ -25,11 +24,10 @@ public class RemoveApplicantCommand extends CommandDP {
     private final Project_Repository project_repsitory;
     private final User_Repository user_repsitory;
 
-    @Async("asyncExecutor")
     @Override
     public String execute() {
-        if(user_repsitory.findById(((Apply_Request) data).getUser_id()).isEmpty())
-            return ERROR + " USER does not exist";
+        // if(user_repsitory.findById(((Apply_Request) data).getUser_id()).isEmpty())
+        //     return ERROR + " USER does not exist";
         if(project_repsitory.findById(((Apply_Request) data).getProject_id()).isEmpty())
             return ERROR + " PROJECT does not exist.";    
             
@@ -37,8 +35,8 @@ public class RemoveApplicantCommand extends CommandDP {
         boolean flag = false;
 
         for(int i = 0; i < list.size(); i++){
-            if(list.get(i).getId().getProject_id() == ((Apply_Request) data).getProject_id() && 
-            list.get(i).getId().getUser_id() == ((Apply_Request) data).getUser_id()){
+            if(list.get(i).getId().getProject_id().equals(((Apply_Request) data).getProject_id()) && 
+            list.get(i).getId().getUser_id().equals(((Apply_Request) data).getUser_id())){
                 flag = true;
                 break;
             }

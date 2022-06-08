@@ -15,6 +15,8 @@
       - [----- Apply on a project](#------apply-on-a-project)
       - [----- Remove a project applicant](#------remove-a-project-applicant)
       - [----- Accept a project applicant](#------accept-a-project-applicant)
+      - [----- User finish his project task](#------user-finish-his-project-task)
+      - [----- Project owner pay user who finished his task](#------project-owner-pay-user-who-finished-his-task)
 
 </hr>
 
@@ -25,7 +27,7 @@
 #### ----- Create project
 
 ```json
-    Create a `POST api/user/project_handler/create_project` request
+    Create a `POST api/project/project_handler/create_project` request
 
 body {
     "owner_id": 1,
@@ -47,14 +49,15 @@ body {
 
     Failure
 { 
-    "message": "Opss! Transaction failed. OWNER does not exist."
+    "message1": "Opss! Transaction failed. OWNER does not exist."
+	"message2": "Opss! Transaction failed.  You are not logged in."
 }
 ```
 
 #### ----- Edit Project
 
 ```json
-    Create a `PUT api/user/project_handler/update_project` request
+    Create a `PUT api/project/project_handler/update_project` request
 
 body {
     "project_id": 1,
@@ -79,7 +82,7 @@ body {
 #### ----- Delete Project
 
 ```json
-    Create a `DELETE api/user/project_handler/delete_project` request
+    Create a `DELETE api/project/project_handler/delete_project` request
 
 body {
     "project_id": 1
@@ -102,7 +105,7 @@ body {
 #### ----- Apply on a project
 
 ```json
-    Create a `POST api/user/applicant_handler/add_applicant` request
+    Create a `POST api/project/applicant_handler/add_applicant` request
 
 body {
     "user_id": 100,
@@ -118,13 +121,14 @@ body {
 { 
     "message1": "Opss! Transaction failed. USER does not exist.",
     "message2": "Opss! Transaction failed. PROJECT does not exist."
+	"message3": "Opss! Transaction failed.  You are not logged in."
 }
 ```
 
 #### ----- Remove a project applicant
 
 ```json
-    Create a `DELETE api/user/applicant_handler/remove_applicant` request
+    Create a `DELETE api/project/applicant_handler/remove_applicant` request
 
 body {
     "user_id": 100,
@@ -141,13 +145,14 @@ body {
     "message1": "Opss! Transaction failed. USER does not exist.",
     "message2": "Opss! Transaction failed. PROJECT does not exist.",
     "message3": "Opss! Transaction failed. There is no such project applicant."
+    "message4": "Opss! Transaction failed.  You are not logged in."	
 }
 ```
 
 #### ----- Accept a project applicant
 
 ```json
-    Create a `PUT api/user/applicant_handler/accept_applicant` request
+    Create a `PUT api/project/applicant_handler/accept_applicant` request
 
 body {
     "user_id":100,
@@ -157,13 +162,67 @@ body {
 
     Success
 { 
-    "message": "Project Applicant added successfully!"
+    "message": "Project Applicant accepted successfully!"
+}
+
+    Failure
+{ 
+    "message1": "Opss! Transaction failed. USER does not exist.",
+	"message2": "Opss! Transaction failed. OWNER does not exist.",
+    "message3": "Opss! Transaction failed. PROJECT does not exist."
+	"message4": "Opss! Transaction failed.  You are not logged in."	
+	"message5": "Opss! Transaction failed. PROJECT OWNER is the only one allowed to do this transaction."
+
+}
+```
+
+#### ----- User finish his project task
+
+```json
+    Create a `PUT api/project/applicant_handler/finish_project` request
+
+body {
+    "user_id":100,
+    "project_id":3,
+}
+
+    Success
+{ 
+    "message": "Project Applicant finished successfully!"
 }
 
     Failure
 { 
     "message1": "Opss! Transaction failed. USER does not exist.",
     "message2": "Opss! Transaction failed. PROJECT does not exist."
+	"message3": "Opss! Transaction failed.  You are not logged in."	
+	"message4": "Opss! Transaction failed. There is no such project applicant."
 }
 ```
 
+#### ----- Project owner pay user who finished his task
+
+```json
+    Create a `PUT api/project/applicant_handler/pay_user` request
+
+body {
+    "user_id":100,
+    "project_id":3,
+	"owner_id": 1
+}
+
+    Success
+{ 
+    "message": "User paid successfully!"
+}
+
+    Failure
+{ 
+    "message1": "Opss! Transaction failed. USER does not exist.",
+	"message2": "Opss! Transaction failed. OWNER does not exist.",
+    "message3": "Opss! Transaction failed. PROJECT does not exist."
+	"message4": "Opss! Transaction failed.  You are not logged in."	
+	"message5": "Opss! Transaction failed. There is no such project applicant."
+	"message6": "Opss! Transaction failed. PROJECT OWNER is the only one allowed to do this transaction."
+}
+```

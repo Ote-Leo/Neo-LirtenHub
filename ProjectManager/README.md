@@ -29,6 +29,8 @@
 - [x] Apply on a project
 - [x] Remove a project applicant
 - [x] Accept a project applicant
+- [x] User finish his project task
+- [x] Project owner pay user who finished his task 
 
 ## Dependencies
 

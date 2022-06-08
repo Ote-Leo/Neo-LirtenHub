@@ -1,5 +1,7 @@
 package com.tau.notification.repositories;
 
+import java.util.ArrayList;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
@@ -23,6 +25,13 @@ public class Notification_CustomImp implements Notification_Custom {
         mongoTemplate.updateFirst(query, update, Notification.class);
         
         
+    }
+
+    @Override
+    public ArrayList<Notification> getNotifications(Long user_id) {
+        Query query = new Query(Criteria.where("userId").is(user_id));
+
+        return (ArrayList<Notification>) mongoTemplate.find(query, Notification.class);
     }
 
 }

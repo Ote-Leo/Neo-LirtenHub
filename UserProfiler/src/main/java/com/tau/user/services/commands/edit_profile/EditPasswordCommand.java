@@ -3,7 +3,6 @@ package com.tau.user.services.commands.edit_profile;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 
-import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
 import com.tau.user.models.UserAuth;
@@ -26,7 +25,7 @@ public class EditPasswordCommand extends CommandDP{
 
     private final UserAuth_Custom userauth_custom;
  
-
+    
     public boolean isLoggedIn(Long user_id){
         boolean flag = false;
 
@@ -42,7 +41,6 @@ public class EditPasswordCommand extends CommandDP{
         return flag;
     }
 
-    @Async("asyncExecutor")
     @Override
     public String execute() throws NoSuchAlgorithmException {
         if(user_repository.findById(((User_Request) data).getUser_id()).isEmpty())
@@ -50,7 +48,7 @@ public class EditPasswordCommand extends CommandDP{
 
         if(!isLoggedIn(((User_Request) data).getUser_id()))
             return ERROR + " You are not logged in.";    
-        
+
         user_custom.updatePassword(((User_Request) data).getUser_id(), ((User_Request) data).getPassword());
         return "Password " + UPDATED_SUCCESS;
 

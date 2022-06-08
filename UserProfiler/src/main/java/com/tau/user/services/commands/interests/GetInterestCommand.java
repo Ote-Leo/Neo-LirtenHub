@@ -3,7 +3,6 @@ package com.tau.user.services.commands.interests;
 import java.util.ArrayList;
 import java.util.Optional;
 
-import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
 import com.tau.user.services.commands.CommandDP;
@@ -40,7 +39,6 @@ public class GetInterestCommand extends CommandDP{
         return flag;
     }
 
-    @Async("asyncExecutor")
     @Override
     public Object execute() {
         if(!isLoggedIn(((User_Request) data).getUser_id()))

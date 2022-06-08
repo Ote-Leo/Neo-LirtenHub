@@ -12,6 +12,8 @@
       - [----- Edit Last Name](#------edit-last-name)
       - [----- Edit Password](#------edit-password)
     - [2. Add bio](#2-add-bio)
+    - [3. Set location manually](#3-set-location-manually)
+    - [3. Set location automatically](#3-set-location-automatically)
     - [3. Add multiple favorite Coding languages](#3-add-multiple-favorite-coding-languages)
     - [4.  Block users](#4--block-users)
     - [5.  Report users](#5--report-users)
@@ -110,6 +112,48 @@ body {
     Failure
 { 
     "message": "Opss! Transaction failed. USER does not exist."
+}
+```
+
+### 3. Set location manually
+
+```json
+    Create a `POST /api/session/usr/add_location/manual/{user_id}` request
+
+body {
+    "location": "Riyadh"
+}
+
+    Success
+{ 
+    "message": "Location updated successfully!"
+}
+
+    Failure
+{ 
+    "message1": "Opss! Transaction failed. USER does not exist."
+    "message2": "Opss! Transaction failed. You are not logged in."
+}
+```
+
+### 3. Set location automatically
+
+```json
+    Create a `POST /api/session/usr/add_location/automatic/{user_id}` request
+
+body {
+    
+}
+
+    Success
+{ 
+    "message": "Location updated successfully!"
+}
+
+    Failure
+{ 
+    "message1": "Opss! Transaction failed. USER does not exist."
+    "message2": "Opss! Transaction failed. You are not logged in."
 }
 ```
 

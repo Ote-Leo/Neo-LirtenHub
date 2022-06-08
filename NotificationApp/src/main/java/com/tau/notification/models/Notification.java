@@ -1,7 +1,6 @@
 package com.tau.notification.models;
 
-
-import java.sql.Date;
+import java.time.LocalDateTime;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -9,6 +8,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
@@ -18,12 +18,12 @@ import lombok.ToString;
 @ToString
 @EqualsAndHashCode
 @AllArgsConstructor
+@NoArgsConstructor
 @Document(collection = "notifications")
 public class Notification {
     @Id
     private Long id;
-    private Long userId;
-    private Date timestamp;
-    private String message, userEmail;
-    private boolean read;    
+    private Long user_id;
+    private LocalDateTime timestamp;
+    private String message;
 }

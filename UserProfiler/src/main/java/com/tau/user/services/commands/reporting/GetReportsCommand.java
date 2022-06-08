@@ -3,8 +3,6 @@ package com.tau.user.services.commands.reporting;
 import com.tau.user.models.Report;
 import com.tau.user.models.UserAuth;
 import com.tau.user.models.UserProfile;
-
-import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
 import com.tau.user.repositories.UserAuth_Custom;
@@ -46,7 +44,6 @@ public class GetReportsCommand extends CommandDP{
         return flag;
     }
 
-    @Async("asyncExecutor")
     @Override
     public Object execute() {
         if(user_repository.findById(((User_Request) data).getUser_id()).isEmpty())

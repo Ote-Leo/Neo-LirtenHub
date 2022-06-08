@@ -5,7 +5,7 @@ import com.tau.project.repositories.project.Project_Repository;
 import com.tau.project.services.commands.CommandDP;
 import com.tau.project.requests.Project_Request;
 
-import org.springframework.scheduling.annotation.Async;
+
 import org.springframework.stereotype.Service;
 
 import lombok.AllArgsConstructor;
@@ -19,7 +19,6 @@ public class UpdateProjectCommand extends CommandDP{
     private final Project_Repository project_repository;
     private final Project_Custom project_custom;
 
-    @Async("asyncExecutor")
     @Override
     public String execute() {
         if(((Project_Request) data).getProject_id() == null)

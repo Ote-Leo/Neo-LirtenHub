@@ -5,7 +5,6 @@ import com.tau.project.repositories.project.Project_Repository;
 import com.tau.project.requests.Project_Request;
 import com.tau.project.services.commands.CommandDP;
 
-import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
 import lombok.AllArgsConstructor;
@@ -19,7 +18,6 @@ public class DeleteProjectCommand extends CommandDP{
 
     private final Project_Repository project_repository;
 
-    @Async("asyncExecutor")
     @Override
     public String execute() {
 

@@ -2,13 +2,17 @@ package com.tau.user.services.commands.edit_profile;
 
 import java.util.ArrayList;
 
-import org.springframework.scheduling.annotation.Async;
+import org.springframework.amqp.rabbit.core.RabbitTemplate;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.tau.user.RabbitMQConfiguration.Message;
+import com.tau.user.RabbitMQConfiguration.RabbitMQConfiguration;
 import com.tau.user.models.UserAuth;
 import com.tau.user.repositories.UserAuth_Custom;
 import com.tau.user.repositories.User_Custom;
 import com.tau.user.repositories.User_Repository;
+import com.tau.user.requests.Notify_Request;
 import com.tau.user.requests.User_Request;
 import com.tau.user.services.commands.CommandDP;
 
@@ -25,6 +29,8 @@ public class EditLastNameCommand extends CommandDP{
 
     private final UserAuth_Custom userauth_custom;
  
+    @Autowired
+    RabbitTemplate template;
 
     public boolean isLoggedIn(Long user_id){
         boolean flag = false;
@@ -41,7 +47,6 @@ public class EditLastNameCommand extends CommandDP{
         return flag;
     }
 
-    @Async("asyncExecutor")
     @Override
     public String execute() {
         if(user_repository.findById(((User_Request) data).getUser_id()).isEmpty())
@@ -49,7 +54,18 @@ public class EditLastNameCommand extends CommandDP{
 
         if(!isLoggedIn(((User_Request) data).getUser_id()))
             return ERROR + " You are not logged in.";    
-            
+        
+        Notify_Request notify_request = new Notify_Request();
+        notify_request.setAccepted_id(((User_Request) data).getUser_id());
+
+        Message message = new Message();
+        message.setMethod("accept_applicant");
+        message.setMessage("accept_applicant");
+        message.setData(notify_request);
+
+        template.convertAndSend(RabbitMQConfiguration.EXCHANGE, RabbitMQConfiguration.PROJECT_ROUTING_KEY, message);      
+                
+
         user_custom.updateLastName(((User_Request) data).getUser_id(), ((User_Request) data).getLast_name());
         return "Last name " + UPDATED_SUCCESS;
 

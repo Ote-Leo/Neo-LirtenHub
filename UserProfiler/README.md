@@ -24,6 +24,8 @@
 
 - [x] Edit Profile
 - [x] Add bio
+- [x] Set location manually
+- [x] Set location automatically
 - [x] Add multiple favorite Coding languages
 - [x] Block users
 - [x] Report users

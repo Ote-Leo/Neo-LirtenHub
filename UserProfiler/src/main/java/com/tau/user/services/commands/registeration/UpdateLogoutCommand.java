@@ -4,7 +4,6 @@ import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.ArrayList;
 
-import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
 import com.tau.user.models.UserAuth;
@@ -41,7 +40,7 @@ public class UpdateLogoutCommand extends CommandDP{
         return flag;
     }
 
-    @Async("asyncExecutor")
+ 
     @Override
     public String execute() {
         

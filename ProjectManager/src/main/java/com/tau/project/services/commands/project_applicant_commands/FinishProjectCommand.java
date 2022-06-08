@@ -10,6 +10,7 @@ import com.tau.project.repositories.project_applicant.Project_Applicant_Reposito
 import com.tau.project.services.commands.CommandDP;
 import com.tau.project.requests.Apply_Request;
 
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
 import lombok.AllArgsConstructor;
@@ -25,7 +26,7 @@ public class FinishProjectCommand extends CommandDP {
     private final Project_Repository project_repository;
     private final User_Repository user_repository;
 
-
+    @Async("asyncExecutor")
     @Override
     public String execute() {
         if (user_repository.findById(((Apply_Request) data).getUser_id()).isEmpty())

@@ -2,6 +2,7 @@ package com.tau.user.services.commands.reporting;
 
 import java.util.ArrayList;
 
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
 import com.tau.user.models.Report;
@@ -41,7 +42,8 @@ public class ReportCommand extends CommandDP{
 
         return flag;
     }
-    
+
+    @Async("asyncExecutor")
     @Override
     public String execute() {
         if(user_repository.findById(((Report_Request) data).getUser_id()).isEmpty())

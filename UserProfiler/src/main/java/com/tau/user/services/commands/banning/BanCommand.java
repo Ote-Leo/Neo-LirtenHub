@@ -2,6 +2,7 @@ package com.tau.user.services.commands.banning;
 
 import java.util.ArrayList;
 
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
 import com.tau.user.models.UserAuth;
@@ -40,6 +41,7 @@ public class BanCommand extends CommandDP{
         return flag;
     }
     
+    @Async("asyncExecutor")
     @Override
     public String execute() {
         if(user_repository.findById(((Ban_Request) data).getUser_id()).isEmpty())

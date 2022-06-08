@@ -79,7 +79,7 @@ public class ChatController {
 	}
 	
 	@GetMapping("/getMessages/close/{usersID}")
-	@Cacheable(value = "messages", key = "#usersID")
+	@Cacheable(value = "listener", key = "#usersID")
 	public String ListenerStop(@PathVariable("usersID") String usersID) {
 		CollectionReference colRef = db.getFirebase().collection(usersID);
 		ListenerRegistration listenerRegistration = listenerRegistrationMap.get(colRef.getId());
@@ -126,31 +126,20 @@ public class ChatController {
 		return message.getMessageID();
 	}
 	
-	//public static void uploadObject(String projectId, String bucketName, String objectName, String filePath) throws IOException
+
 	@PostMapping("/sendImage/{usersID}")
 	public void uploadObject(@RequestBody ChatMessage message, @PathVariable("usersID") String usersID) throws IOException {
-		    // The ID of your GCP project
-		    // String projectId = "your-project-id";
-			
-			
-		    // The ID of your GCS bucket
-		    // String bucketName = "your-unique-bucket-name";
-			//lirtenhub-74ddf.appspot.com
+
 			String bucketName = "lirtenhub-74ddf.appspot.com";
 
-		    // The ID of your GCS object
-		    // String objectName = "your-object-name";
-			//String objectName = "Image1";
+
 			String objectName = usersID + "_" + message.getMessageID()+"";
 			
 			System.out.println(bucket.getBucket().getName());
 			Storage storage = bucket.getBucket().getStorage();
-		    // The path to your file to upload
-		    // String filePath = "path/to/your/file"
-			//String filePath = "C:\\Users\\amirw\\Documents\\Demo.png";
+
 			String filePath = message.getMessageText();
 			
-		    //Storage storage = StorageOptions.newBuilder().setProjectId(projectId).build().getService();
 		   
 		    BlobId blobId = BlobId.of(bucketName, objectName);
 		    
@@ -159,33 +148,24 @@ public class ChatController {
 		    storage.create(blobInfo, Files.readAllBytes(Paths.get(filePath)));
 
 		    
-		    System.out.println(
-		        "File " + filePath + " uploaded to bucket " + bucketName + " as " + objectName);
+		    System.out.println( "File " + filePath + " uploaded to bucket " + bucketName + " as " + objectName);
 		  }
 	
-	//public void downloadObject(String projectId, String bucketName, String objectName, String destFilePath)
-	@GetMapping("/getImage/{ID}")
-	@Cacheable(value = "messages", key = "#ID")
-	public void downloadObject(@PathVariable("ID") String usersID) {
-		    // The ID of your GCP project
-		    // String projectId = "your-project-id";
-			
 
-		    // The ID of your GCS bucket
-		    // String bucketName = "your-unique-bucket-name";
+	@GetMapping("/getImage/{ID}")
+	@Cacheable(value = "images", key = "#usersID")
+	public void downloadObject(@PathVariable("ID") String usersID) {
+
 			String bucketName = "lirtenhub-74ddf.appspot.com";
 
-		    // The ID of your GCS object
-		    // String objectName = "your-object-name";
-			//String objectName = "Image1";
+
 			String objectName = usersID;
 			
-		    // The path to which the file should be downloaded
-		    // String destFilePath = "/local/path/to/file.txt";
+
 			String destFilePath = "C:\\Users\\Documents\\" + usersID + ".png";
 
 			Storage storage = bucket.getBucket().getStorage();
-		    //Storage storage = StorageOptions.newBuilder().setProjectId(projectId).build().getService();
+
 
 		    Blob blob = storage.get(BlobId.of(bucketName, objectName));
 		    blob.downloadTo(Paths.get(destFilePath));

@@ -10,6 +10,7 @@ import com.tau.user.services.commands.CommandDP;
 
 import java.util.ArrayList;
 
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
 import lombok.AllArgsConstructor;
@@ -41,6 +42,7 @@ public class AddBioCommand extends CommandDP {
         return flag;
     }
  
+    @Async("asyncExecutor")
     @Override
     public String execute() {
         //if user is logged in

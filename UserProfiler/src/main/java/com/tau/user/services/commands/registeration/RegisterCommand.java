@@ -5,6 +5,7 @@ import java.security.NoSuchAlgorithmException;
 
 import java.util.ArrayList;
 
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
 import com.tau.user.models.UserProfile;
@@ -23,7 +24,7 @@ public class RegisterCommand extends CommandDP{
     private final User_Repository user_repository;
     private final User_Custom user_custom;
  
-
+    @Async("asyncExecutor")
     @Override
     public String execute() throws NoSuchAlgorithmException {
         

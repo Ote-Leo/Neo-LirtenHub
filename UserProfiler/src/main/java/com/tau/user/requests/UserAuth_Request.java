@@ -14,7 +14,7 @@ public class UserAuth_Request {
     private Long user_id;
     private final LocalDateTime loginTime;
     private final LocalDateTime logoutTime;
-    private final String password;
+    private String password;
 
   
     public UserAuth_Request(){
